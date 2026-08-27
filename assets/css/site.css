@@ -1,0 +1,491 @@
+/* =========================================================
+   delclos.photo — full d'estil únic
+   Paleta: disseny/colors/paleta-final.md
+   Tipografia: disseny/tipografia/tipografia-final.md
+   ========================================================= */
+
+:root{
+  --verd-fosc:#1F3A2C;
+  --verd-pro:#16241C;
+  --oliva:#6B7440;
+  --daurat:#D9922E;
+  --daurat-fosc:#8A5A12;
+  --crema:#F3E9D6;
+  --blau:#4C6C88;
+  --blanc:#fff;
+
+  --tit:'Jost','Futura','Avenir Next',-apple-system,sans-serif;
+  --cos:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+
+  --marge:clamp(20px,5vw,64px);
+  --ample:1240px;
+  --buit:clamp(72px,10vw,130px);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--verd-pro);
+  color:var(--crema);
+  font-family:var(--cos);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+/* <picture> només tria el format: que no s'interposi en la maquetació,
+   perquè la <img> ha de comportar-se com si pengés directament del pare. */
+picture{display:contents}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+:focus-visible{outline:2px solid var(--daurat);outline-offset:3px}
+
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--daurat);color:var(--verd-pro);padding:12px 20px;font-family:var(--tit);font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+.skip:focus{left:0}
+
+/* ---------- tipografia ---------- */
+.lbl{
+  font-family:var(--tit);font-weight:400;font-size:11px;
+  letter-spacing:.3em;text-transform:uppercase;margin:0 0 14px;
+}
+.h2{
+  font-family:var(--tit);font-weight:300;
+  font-size:clamp(28px,4.4vw,54px);
+  letter-spacing:.11em;text-transform:uppercase;
+  line-height:1.18;margin:0;
+}
+/* Els salts de línia manuals als titulars llargs estan pensats per a
+   l'amplada d'escriptori; per sota, deixem que el navegador els parteixi
+   sol perquè no s'ajunti amb el trencament natural i en surtin de sobrants. */
+@media(max-width:640px){.brk{display:none}}
+/* Alguns títols llargs sí que volen mantenir el salt fins i tot en mòbil:
+   quan la frase té dues clàusules, partir-la pel punt evita que la
+   conjunció ("la"/"your"...) quedi penjant sola al final d'una línia. */
+.brk.keep{display:inline}
+.h3{
+  font-family:var(--tit);font-weight:400;
+  font-size:clamp(19px,2vw,25px);
+  letter-spacing:.08em;text-transform:uppercase;
+  line-height:1.3;margin:0;
+}
+p{margin:0 0 1.1em}
+p:last-child{margin-bottom:0}
+
+/* ---------- fons de secció ---------- */
+.sec{padding:var(--buit) var(--marge)}
+/* Reserva per a la capçalera fixa: sense això, en clicar un enllaç del
+   menú la secció arriba amagada mig pam sota la barra. */
+[id]{scroll-margin-top:86px}
+.sec--crema{background:var(--crema);color:var(--verd-pro)}
+.sec--verd{background:var(--verd-fosc);color:var(--crema)}
+.sec--pro{background:var(--verd-pro);color:var(--crema)}
+.sec--crema .lbl{color:var(--oliva)}
+.sec--verd .lbl,.sec--pro .lbl{color:rgba(243,233,214,.55)}
+.inner{max-width:var(--ample);margin:0 auto}
+
+/* ---------- capçalera ---------- */
+.bar{
+  position:fixed;inset:0 0 auto;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:16px var(--marge);
+  background:linear-gradient(180deg,rgba(22,36,28,.62),rgba(22,36,28,0));
+  transition:background .35s ease,backdrop-filter .35s ease;
+}
+.bar.solid{background:rgba(22,36,28,.94);backdrop-filter:blur(10px)}
+.bar a{text-decoration:none}
+.marca{font-family:var(--tit);font-weight:300;font-size:13px;letter-spacing:.26em;text-transform:uppercase;color:#fff;white-space:nowrap}
+.menu{display:flex;gap:clamp(16px,2.4vw,32px)}
+.menu a{font-family:var(--tit);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.82);padding:6px 0;position:relative}
+.menu a::after{content:'';position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--daurat);transition:right .35s ease}
+.menu a:hover::after,.menu a:focus-visible::after{right:0}
+.idiomes{display:flex;align-items:center;gap:9px;font-family:var(--tit);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.idiomes a{padding:4px 2px}
+.idiomes a:hover{color:#fff}
+.idiomes [aria-current]{color:var(--daurat)}
+.hamb{display:none;width:34px;height:34px;align-items:center;justify-content:center}
+.hamb span{display:block;width:20px;height:1px;background:#fff;position:relative;transition:background .2s}
+.hamb span::before,.hamb span::after{content:'';position:absolute;left:0;width:20px;height:1px;background:#fff;transition:transform .3s ease}
+.hamb span::before{top:-6px}
+.hamb span::after{top:6px}
+.bar.obert .hamb span{background:transparent}
+.bar.obert .hamb span::before{transform:translateY(6px) rotate(45deg)}
+.bar.obert .hamb span::after{transform:translateY(-6px) rotate(-45deg)}
+
+@media(max-width:820px){
+  .hamb{display:flex}
+  .menu{
+    position:fixed;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:26px;
+    background:rgba(22,36,28,.98);
+    opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s;
+  }
+  .menu a{font-size:15px;letter-spacing:.26em}
+  .bar.obert .menu{opacity:1;visibility:visible}
+  .bar.obert{background:rgba(22,36,28,.98)}
+  .idiomes{position:relative;z-index:1}
+}
+
+/* ---------- 01 hero ---------- */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden;padding:120px var(--marge) 96px}
+.hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%}
+.hero__ov{position:absolute;inset:0;background:
+  radial-gradient(120% 88% at 50% 44%,rgba(22,36,28,.28) 0%,rgba(22,36,28,.46) 58%,rgba(22,36,28,.72) 100%);}
+.hero__in{position:relative;max-width:1400px}
+/* Aquesta línia va sobre la boira, que és clara: amb el blanc a mitja
+   intensitat es perdia. Blanc ple, un punt més de cos i una ombra molt
+   suau perquè se separi del fons sense semblar que en porti. */
+.hero__eyebrow{
+  font-family:var(--tit);font-weight:400;
+  font-size:clamp(11px,1.15vw,13px);
+  letter-spacing:.38em;text-transform:uppercase;
+  color:#fff;margin:0;
+  text-shadow:0 1px 16px rgba(22,36,28,.75),0 0 3px rgba(22,36,28,.35);
+}
+.hero__title{
+  font-family:var(--tit);font-weight:300;
+  font-size:clamp(32px,6.5vw,68px);
+  letter-spacing:.1em;text-transform:none;color:#fff;
+  line-height:1.3;margin:0 0 16px;
+  text-shadow:0 2px 20px rgba(22,36,28,.8);
+}
+.hero__subtitle{
+  font-family:var(--tit);font-weight:400;
+  font-size:clamp(16px,2vw,22px);
+  letter-spacing:.08em;color:rgba(255,255,255,.95);
+  margin:0 0 40px;
+  text-shadow:0 1px 16px rgba(22,36,28,.75);
+}
+.hero__in h1{
+  font-family:var(--tit);font-weight:300;
+  font-size:clamp(36px,6.5vw,66px);letter-spacing:.06em;
+  color:#fff;margin:14px 0 0;line-height:1.2;
+  text-shadow:0 2px 20px rgba(22,36,28,.8);
+}
+.hero__rule{
+  width:64px;height:1px;margin:26px auto;border:0;
+  background:rgba(255,255,255,.45);
+}
+.hero__meta{
+  font-family:var(--cos);font-weight:500;
+  font-size:clamp(14px,1.4vw,16px);
+  color:rgba(255,255,255,.92);margin:0;
+  text-shadow:0 1px 16px rgba(22,36,28,.75);
+}
+.hero__meta .estrelles{color:var(--daurat);letter-spacing:.18em;margin-right:8px}
+.hero__cue{
+  position:absolute;left:50%;bottom:36px;transform:translateX(-50%);
+  font-family:var(--cos);font-weight:600;font-size:11px;
+  letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.75);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  text-decoration:none;text-shadow:0 1px 16px rgba(22,36,28,.75);
+  transition:color .3s ease;
+}
+.hero__cue:hover{color:#fff}
+.hero__cue i{
+  width:1px;height:22px;background:rgba(255,255,255,.6);
+  display:block;
+}
+@media(max-width:600px){.hero__cue{bottom:24px}}
+.hero__ctas{
+  display:flex;flex-direction:column;gap:14px;max-width:520px;margin:0 auto;
+}
+.hero__btn{
+  display:inline-block;
+  font-family:var(--tit);font-weight:400;
+  font-size:13px;letter-spacing:.15em;text-transform:uppercase;
+  padding:16px 28px;
+  border:2px solid rgba(255,255,255,.5);
+  color:#fff;text-decoration:none;
+  transition:all .4s ease;
+  cursor:pointer;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(8px);
+}
+.hero__btn:hover{
+  border-color:#fff;
+  background:rgba(255,255,255,.15);
+  transform:translateY(-2px);
+}
+.hero__btn--primary{
+  border-color:var(--daurat);
+  background:var(--daurat);
+  color:var(--verd-pro);
+}
+.hero__btn--primary:hover{
+  background:rgba(217,146,46,.9);
+  border-color:var(--daurat);
+}
+@media(max-width:600px){
+  .hero__ctas{flex-direction:column}
+  .hero__btn{padding:14px 24px;font-size:12px}
+}
+
+/* ---------- 02 trajectòria ---------- */
+.traj__head{display:flex;align-items:flex-end;justify-content:space-between;gap:26px;flex-wrap:wrap;margin-bottom:46px}
+.traj__count{font-family:var(--tit);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(31,58,44,.55)}
+/* Franja contínua amb els noms de les proves: menys espai que la graella
+   de logos i el moviment fa notar que n'hi ha moltes sense allargar la web. */
+.marquee{
+  margin:46px 0 0;overflow:hidden;padding:26px 0;
+  border-top:1px solid rgba(31,58,44,.17);
+  border-bottom:1px solid rgba(31,58,44,.17);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+}
+.marquee__track{display:flex;width:max-content;animation:marquee 38s linear infinite}
+.marquee:hover .marquee__track{animation-play-state:paused}
+.marquee__group{display:flex;align-items:center;flex-shrink:0}
+.marquee__group span{
+  font-family:var(--tit);font-weight:300;
+  font-size:clamp(15px,1.9vw,22px);letter-spacing:.05em;text-transform:uppercase;
+  color:rgba(31,58,44,.68);white-space:nowrap;padding:0 clamp(18px,2.6vw,32px);
+}
+.marquee__group .sep{color:var(--daurat);padding:0}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:760px){
+  .marquee{padding:18px 0}
+  .marquee__group span{padding:0 16px}
+}
+@media(prefers-reduced-motion:reduce){.marquee__track{animation:none}}
+
+/* ---------- 03 qui soc ---------- */
+/* El retrat es queda dins del bloc verd: no sobresurt cap a la secció
+   de dalt. */
+.qui--sense-foto .qui__grid{grid-template-columns:1fr}
+.qui--sense-foto .qui__txt p{max-width:58ch}
+/* Aquest titular és més llarg que els altres i comparteix fila amb el
+   retrat: va un punt més petit perquè no es mengi la columna de text. */
+.qui .h2{font-size:clamp(20px,2.6vw,32px)}
+.qui__grid{display:grid;grid-template-columns:5fr 6fr;gap:clamp(30px,5vw,72px);align-items:center}
+.qui__shot{position:relative;aspect-ratio:3/4;overflow:hidden}
+.qui__shot img{width:100%;height:100%;object-fit:cover}
+.qui__txt p{color:rgba(243,233,214,.78);margin-top:22px;max-width:46ch}
+.signatura{font-family:var(--tit);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--daurat);margin-top:26px}
+@media(max-width:820px){.qui__grid{grid-template-columns:1fr}.qui__shot{aspect-ratio:4/5}}
+
+/* ---------- 04 el treball ---------- */
+.treball__head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:52px}
+.treball__head p{color:rgba(243,233,214,.62);max-width:60ch;font-size:15px;white-space:nowrap}
+@media(max-width:760px){.treball__head p{white-space:normal;max-width:36ch}}
+/* Mosaic compacte. Cada columna apila les fotografies una sota l'altra
+   sense deixar aire entremig, així que cadascuna conserva la seva
+   proporció real però no queden forats de fons entre elles. */
+.mosaic{
+  --sep:clamp(12px,1.6vw,20px);
+  columns:3;column-gap:var(--sep);
+}
+.mosaic figure{
+  margin:0 0 var(--sep);
+  overflow:hidden;position:relative;
+  break-inside:avoid;-webkit-column-break-inside:avoid;
+}
+.mosaic img{width:100%;height:auto;display:block;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+.mosaic figure:hover img{transform:scale(1.04)}
+@media(max-width:1100px){.mosaic{columns:2}}
+@media(max-width:640px){.mosaic{columns:1}}
+@media(prefers-reduced-motion:reduce){.mosaic figure:hover img{transform:none}}
+
+/* En mòbil, una sola columna amb totes les fotos és molta pantalla de
+   scroll abans d'arribar a Serveis: només se'n mostren les primeres i un
+   botó en despenja la resta. En escriptori (3 columnes) es veuen totes. */
+.mosaic__more{display:none}
+@media(max-width:640px){
+  .mosaic:not(.mosaic--tot) figure:nth-child(n+5){display:none}
+  .mosaic__more{
+    display:block;margin:22px auto 0;
+    font-family:var(--tit);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--daurat);background:none;border:2px solid rgba(243,233,214,.3);
+    padding:13px 26px;cursor:pointer;
+  }
+  .mosaic--tot + .mosaic__more{display:none}
+}
+
+/* ---------- 05 procés ---------- */
+.proces__intro{max-width:52ch;margin-top:20px;color:rgba(31,58,44,.75)}
+.passos{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(31,58,44,.14);border-top:1px solid rgba(31,58,44,.14);margin-top:54px}
+.passos article{background:var(--crema);padding:34px 26px 40px}
+.passos .num{font-family:var(--tit);font-weight:300;font-size:34px;color:var(--daurat);line-height:1;letter-spacing:.02em}
+.passos .sub{font-family:var(--tit);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--oliva);margin:18px 0 8px}
+.passos p{font-size:14.5px;color:rgba(31,58,44,.78);margin-top:12px}
+.proces__tanca{margin-top:44px;padding-left:18px;border-left:2px solid var(--daurat);max-width:60ch;color:rgba(31,58,44,.8)}
+@media(max-width:980px){.passos{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.passos{grid-template-columns:1fr}}
+
+/* ---------- 05b xifres ---------- */
+.xifres{text-align:center;padding-block:clamp(58px,7vw,92px)}
+.xifres__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(30px,6vw,80px);margin-top:40px;max-width:760px;margin-inline:auto}
+.xifres b{display:block;font-family:var(--tit);font-weight:300;font-size:clamp(42px,7vw,82px);color:var(--daurat);line-height:1;letter-spacing:.02em}
+.xifres span{display:block;margin-top:16px;font-family:var(--tit);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(243,233,214,.6)}
+@media(max-width:640px){.xifres__grid{grid-template-columns:1fr;gap:44px}}
+
+/* ---------- 06 per què cobrir ---------- */
+.perque{position:relative;min-height:76vh;display:flex;align-items:center;overflow:hidden;padding:var(--buit) var(--marge)}
+.perque__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:65% center}
+.perque__ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,36,28,.82) 0%,rgba(22,36,28,.62) 46%,rgba(22,36,28,.34) 100%)}
+.perque__in{position:relative;max-width:var(--ample);margin:0 auto;width:100%}
+.perque__in .lbl{color:rgba(243,233,214,.65)}
+.perque__in .h2{color:#fff;max-width:16ch}
+.perque ul{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:1px;max-width:440px;background:rgba(243,233,214,.18);border-top:1px solid rgba(243,233,214,.18);border-bottom:1px solid rgba(243,233,214,.18)}
+.perque li{background:rgba(22,36,28,.32);padding:15px 0 15px 20px;font-family:var(--tit);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.92);position:relative}
+.perque li::before{content:'';position:absolute;left:0;top:50%;width:8px;height:1px;background:var(--daurat)}
+
+/* ---------- 07 serveis ---------- */
+.serveis__lead{color:rgba(31,58,44,.65);font-size:15.5px;max-width:52ch;margin-top:10px}
+/* Tabs: permeten mostrar una cobertura a la vegada sense repetir contingut
+   ni allargar la pàgina amb les tres apilades sempre visibles. */
+.casosuso__tabs{display:flex;gap:10px;margin:32px 0 0;flex-wrap:wrap;border-bottom:2px solid rgba(31,58,44,.15)}
+.casosuso__tab{
+  font-family:var(--cos);font-weight:600;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;
+  padding:13px 20px;border:2px solid rgba(31,58,44,.16);border-bottom:none;
+  color:rgba(31,58,44,.55);background:rgba(31,58,44,.03);
+  cursor:pointer;border-radius:6px 6px 0 0;transition:all .25s ease;
+  white-space:nowrap;flex-shrink:0;
+}
+/* Sota una certa amplada les tres pestanyes ja no caben una al costat de
+   l'altra: en lloc de deixar-les apilar-se a tota amplada (fa molt llarga
+   la tria), les convertim en una tira que es desplaça horitzontalment. */
+@media(max-width:560px){
+  .casosuso__tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .casosuso__tab{padding:12px 16px;font-size:11.5px}
+}
+/* Punts sota les pestanyes: en mòbil, on la tira es desplaça i no es veuen
+   les tres alhora, deixen clar d'un cop d'ull que n'hi ha tres sense haver
+   de fer scroll per descobrir-ho. */
+.casosuso__dots{display:none}
+@media(max-width:560px){
+  .casosuso__dots{display:flex;gap:8px;justify-content:center;margin:16px 0 0}
+  .casosuso__dot{width:7px;height:7px;border-radius:50%;background:rgba(31,58,44,.22);transition:background .25s ease,transform .25s ease}
+  .casosuso__dot.active{background:var(--daurat);transform:scale(1.25)}
+}
+.casosuso__tab:hover{color:var(--verd-pro);border-color:rgba(31,58,44,.32)}
+.casosuso__tab.active{background:var(--daurat);color:var(--verd-pro);border-color:var(--daurat)}
+.cobertures--tabs{display:block;margin-top:clamp(36px,5vw,54px)}
+.cobertures--tabs .cobertura{display:none}
+.cobertures--tabs .cobertura.active{display:block}
+/* Cada cobertura és un bloc apilat: la fotografia a dalt, a tota
+   l'amplada, i el text en un panell verd a sota. */
+.cobertures{display:grid;gap:clamp(40px,5vw,72px);margin-top:clamp(46px,6vw,70px);max-width:940px;margin-inline:auto}
+.cobertura{margin:0;background:var(--verd-fosc);color:var(--crema);overflow:hidden}
+.cobertura__foto{margin:0;overflow:hidden;aspect-ratio:4/3}
+.cobertura__foto img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.3,1)}
+.cobertura:hover .cobertura__foto img{transform:scale(1.03)}
+.cobertura__txt{padding:clamp(30px,4vw,46px) clamp(24px,4vw,50px) clamp(36px,5vw,52px)}
+.cobertura .sub{font-family:var(--tit);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--daurat);margin:0 0 12px}
+.cobertura .ideal{font-size:15.5px;color:rgba(243,233,214,.74);margin:18px 0 26px;max-width:52ch}
+.cobertura ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.cobertura li{font-size:15px;color:rgba(243,233,214,.86);padding-left:20px;position:relative;line-height:1.6}
+.cobertura li::before{content:'';position:absolute;left:0;top:12px;width:9px;height:1px;background:var(--oliva)}
+/* El preu, sota les tres cobertures. Discret però inequívoc: filtra les
+   consultes abans que arribin, que és justament el que ha de fer. */
+.preu{
+  max-width:940px;margin:clamp(34px,4vw,52px) auto 0;
+  padding-top:clamp(26px,3vw,36px);
+  border-top:1px solid rgba(31,58,44,.18);
+  text-align:center;
+  font-family:var(--tit);font-weight:400;
+  font-size:clamp(13px,1.5vw,16px);
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--daurat-fosc);
+}
+@media(max-width:700px){.cobertura__foto{aspect-ratio:3/2}}
+@media(prefers-reduced-motion:reduce){.cobertura:hover .cobertura__foto img{transform:none}}
+
+/* ---------- 08 faq ---------- */
+.faq{border-top:1px solid rgba(31,58,44,.14);padding-top:calc(var(--buit) * .8)}
+.faq__llista{margin-top:44px;border-top:1px solid rgba(31,58,44,.16)}
+.faq details{border-bottom:1px solid rgba(31,58,44,.16)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:24px 44px 24px 0;position:relative;
+  font-family:var(--tit);font-weight:400;font-size:clamp(15px,1.7vw,19px);
+  letter-spacing:.06em;text-transform:uppercase;line-height:1.4;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after,.faq summary::before{content:'';position:absolute;right:6px;top:50%;background:var(--oliva);transition:transform .3s ease,opacity .3s}
+.faq summary::after{width:13px;height:1px;margin-top:-.5px}
+.faq summary::before{width:1px;height:13px;right:12px;margin-top:-6.5px}
+.faq details[open] summary::before{transform:rotate(90deg);opacity:0}
+.faq details[open] summary{color:var(--daurat-fosc)}
+.faq .resp{padding:0 0 26px;max-width:70ch;color:rgba(31,58,44,.8);font-size:15px}
+
+/* ---------- 09 opinions ---------- */
+.opinions__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.6vw,34px);margin-top:50px}
+.opinio{border-top:1px solid rgba(243,233,214,.2);padding-top:24px;display:flex;flex-direction:column}
+.opinio__head{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.opinio__avatar{width:38px;height:38px;border-radius:50%;flex-shrink:0}
+.opinio__nom{font-family:var(--cos);font-weight:600;font-size:13.5px;margin:0;color:#fff}
+.opinio__rating{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.opinio .estrelles{font-size:12px;letter-spacing:.2em;margin:0}
+.opinio__verified{font-size:11px;color:rgba(243,233,214,.5)}
+.opinio blockquote{margin:14px 0 0;font-size:15px;line-height:1.8;color:rgba(243,233,214,.84);flex:1}
+.opinio figcaption{margin-top:22px;font-family:var(--cos);font-weight:600;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(243,233,214,.5)}
+.opinions__nota{margin-top:34px;font-size:12px;color:rgba(243,233,214,.4)}
+@media(max-width:900px){.opinions__grid{grid-template-columns:1fr;gap:34px}}
+
+/* ---------- 10 contacte ---------- */
+.contacte__grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(34px,6vw,86px);align-items:start;margin-top:12px}
+.contacte__txt .h2{font-size:clamp(22px,2.8vw,34px)}
+.contacte__txt p{color:rgba(243,233,214,.78);margin-top:22px;max-width:38ch}
+.contacte__nota{font-size:14px;color:rgba(243,233,214,.55);margin-top:20px;padding-left:16px;border-left:2px solid var(--daurat)}
+.canals{margin-top:40px}
+.canals p{font-family:var(--tit);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(243,233,214,.45);margin-bottom:16px}
+.canals ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.canals a{
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;
+  border:1px solid rgba(243,233,214,.28);padding:12px 20px;
+  font-family:var(--tit);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  transition:border-color .3s,background .3s,color .3s;
+}
+.canals a:hover{border-color:var(--daurat);color:var(--daurat)}
+
+form{display:grid;gap:20px}
+.camp{display:grid;gap:7px}
+.camp label{font-family:var(--tit);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(243,233,214,.6)}
+.camp label .req{color:var(--daurat)}
+.camp input,.camp select,.camp textarea{
+  font-family:var(--cos);font-size:15px;color:var(--crema);
+  background:transparent;border:0;border-bottom:1px solid rgba(243,233,214,.3);
+  padding:11px 2px;border-radius:0;transition:border-color .3s;
+}
+.camp textarea{resize:vertical;min-height:96px}
+.camp select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,rgba(243,233,214,.5) 50%),linear-gradient(135deg,rgba(243,233,214,.5) 50%,transparent 50%);background-position:right 8px center,right 3px center;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:26px}
+.camp select option{background:var(--verd-pro);color:var(--crema)}
+.camp input:focus,.camp select:focus,.camp textarea:focus{outline:0;border-bottom-color:var(--daurat)}
+.camp input::placeholder,.camp textarea::placeholder{color:rgba(243,233,214,.32)}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+/* Camp trampa per als robots. Va fora de pantalla, però amb
+   autocomplete="off" i tabindex="-1" perquè ni el gestor de contrasenyes
+   ni el tabulador hi arribin: si s'omple sol, Netlify descarta el missatge
+   com a brossa i es perd una consulta de veritat. */
+.amagat{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.btn{
+  justify-self:start;background:var(--daurat);color:var(--verd-pro);
+  font-family:var(--tit);font-weight:400;font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+  padding:17px 42px;border:1px solid var(--daurat);text-decoration:none;
+  transition:background .3s,color .3s;
+}
+.btn:hover{background:transparent;color:var(--daurat)}
+@media(max-width:900px){.contacte__grid{grid-template-columns:1fr}.dos{grid-template-columns:1fr}}
+
+/* ---------- peu ---------- */
+.peu{
+  background:var(--verd-pro);padding:34px var(--marge);
+  border-top:1px solid rgba(243,233,214,.12);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  font-family:var(--tit);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(243,233,214,.45);
+}
+.peu a{text-decoration:none}
+.peu a:hover{color:var(--daurat)}
+
+/* ---------- aparició en scroll ---------- */
+.rev{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.3,1)}
+.rev.vist{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rev{opacity:1;transform:none}
+  .mosaic figure:hover img,.targeta:hover .targeta__foto img{transform:none}
+}
