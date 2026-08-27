@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url><loc>https://delclos.photo/</loc>
-    <xhtml:link rel="alternate" hreflang="ca" href="https://delclos.photo/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://delclos.photo/es/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delclos.photo/en/"/>
+  <url><loc>https://delclosphoto-source.github.io/delclos-photo/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://delclosphoto-source.github.io/delclos-photo/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://delclosphoto-source.github.io/delclos-photo/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delclosphoto-source.github.io/delclos-photo/en/"/>
   </url>
-  <url><loc>https://delclos.photo/es/</loc>
-    <xhtml:link rel="alternate" hreflang="ca" href="https://delclos.photo/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://delclos.photo/es/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delclos.photo/en/"/>
+  <url><loc>https://delclosphoto-source.github.io/delclos-photo/es/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://delclosphoto-source.github.io/delclos-photo/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://delclosphoto-source.github.io/delclos-photo/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delclosphoto-source.github.io/delclos-photo/en/"/>
   </url>
-  <url><loc>https://delclos.photo/en/</loc>
-    <xhtml:link rel="alternate" hreflang="ca" href="https://delclos.photo/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://delclos.photo/es/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://delclos.photo/en/"/>
+  <url><loc>https://delclosphoto-source.github.io/delclos-photo/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://delclosphoto-source.github.io/delclos-photo/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://delclosphoto-source.github.io/delclos-photo/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://delclosphoto-source.github.io/delclos-photo/en/"/>
   </url>
 </urlset>
