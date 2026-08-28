@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://delclosphoto-source.github.io/delclos-photo/sitemap.xml
+Sitemap: https://delclos.photo/sitemap.xml
