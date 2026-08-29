@@ -27,9 +27,6 @@
   3) EL DATO DEL 90%
      No lo he puesto. Ver el comentario en "Dónde se pierde exactamente".
 
-  4) TESTIMONIOS
-     La sección "Confianza" está vacía a propósito. No invento reseñas.
-
   5) EL CIERRE
      Una sola llamada a la acción: el botón de WhatsApp. Sin formulario,
      a propósito: dos caminos para lo mismo reparten los clics.
@@ -476,31 +473,6 @@ a{ color:inherit; }
 .step p{ margin:0; color:rgba(242,237,228,.62); font-size:.9375rem; }
 
 /* ---------------------------------------------------------
-   7. CONFIANZA (vacío a propósito)
-   --------------------------------------------------------- */
-.trust__slots{
-  display:grid;
-  gap:1.25rem;
-  margin-top:clamp(2rem,4vw,3rem);
-}
-@media (min-width:820px){ .trust__slots{ grid-template-columns:repeat(2,1fr); } }
-.slot{
-  border:1px dashed var(--rule);
-  padding:clamp(1.5rem,3vw,2.25rem);
-  color:var(--ink-soft);
-  font-size:.875rem;
-}
-.slot strong{
-  display:block;
-  font-family:var(--display);
-  font-variation-settings:"SOFT" 22, "WONK" 1;
-  font-size:1.2rem;
-  font-weight:400;
-  color:var(--ink);
-  margin-bottom:.5rem;
-}
-
-/* ---------------------------------------------------------
    8. CONTACTO — un solo camino, deliberadamente
    --------------------------------------------------------- */
 .contact h2{ font-size:clamp(2.4rem,6.4vw,4.2rem); max-width:15ch; }
@@ -760,46 +732,6 @@ a{ color:inherit; }
     </div>
   </div>
 </section>
-
-<!-- =========================================================
-     7. CONFIANZA — OCULTA hasta tener testimonios reales
-     ---------------------------------------------------------
-     Estaba publicada enseñando "Testimonio pendiente" y una nota
-     mía sobre cuándo pedirlos: eso lo veía cualquier visitante.
-     Para reactivarla: quita esta línea de comentario y la del
-     final del bloque, y sustituye los dos huecos por citas
-     reales, con nombre y alojamiento, pidiendo permiso antes.
-
-<!- - =========================================================
-     7. CONFIANZA — pendiente de rellenar
-     ========================================================= - ->
-<section class="band">
-  <div class="shell">
-    <p class="eyebrow rise">Confianza</p>
-    <h2 class="rise" style="font-size:clamp(2.1rem,5.2vw,3.6rem);max-width:15ch">Lo que dicen los hoteles</h2>
-
-    <div class="trust__slots">
-      <!- -
-        NO he escrito testimonios de ejemplo. Un testimonio inventado en una
-        página comercial es una reseña falsa: si un hotelero lo comprueba,
-        pierdes el cliente y la reputación.
-        Sustituye cada bloque por una cita real, con nombre y alojamiento,
-        y pide permiso antes de publicarla.
-      - ->
-      <div class="slot rise">
-        <strong>Testimonio pendiente</strong>
-        Sustituye este bloque por una cita real: la frase, el nombre de la persona y el alojamiento.
-      </div>
-      <div class="slot rise">
-        <strong>Testimonio pendiente</strong>
-        Con dos basta para empezar. Pídelas después del primer encargo, cuando la mejora aún se recuerda.
-      </div>
-    </div>
-  </div>
-</section>
-
-
-     ========================================================= -->
 
 <!-- =========================================================
      8. CONTACTO — una sola acción: WhatsApp
