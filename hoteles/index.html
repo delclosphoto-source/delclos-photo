@@ -353,6 +353,13 @@ a{ color:inherit; }
 /* ---------------------------------------------------------
    4. BENEFICIOS
    --------------------------------------------------------- */
+/* titular a dos tiempos: la afirmación arriba, el remate debajo */
+.dosLineas{
+  font-size:clamp(2rem,5.2vw,3.6rem);
+  max-width:none;
+}
+.dosLineas span{ color:var(--accent-deep); }
+
 .gains{
   display:grid;
   gap:0;
@@ -643,7 +650,7 @@ a{ color:inherit; }
       un cuarto bloque .gain, citando la fuente.
     -->
     <p class="eyebrow rise">Dónde se pierde exactamente</p>
-    <h2 class="rise" style="font-size:clamp(2.1rem,5.2vw,3.6rem);max-width:16ch">Nadie lee tu hotel. Lo mira.</h2>
+    <h2 class="rise dosLineas">Nadie lee tu hotel.<br><span>Lo mira.</span></h2>
 
     <div class="gains">
       <div class="gain rise">
