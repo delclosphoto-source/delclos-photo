@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fotos que venden tu hotel</title>
+<meta name="description" content="Retoque de las fotos que tu alojamiento ya tiene publicadas. Sin sesión y sin bloquear habitaciones: me mandas las que tengas y te las devuelvo listas. Hoteles boutique y hostels de Barcelona.">
+
+<!--
+  ============================================================
+  QUÉ TIENES QUE CAMBIAR ANTES DE PUBLICAR
+  ============================================================
+
+  1) LAS FOTOS
+     Todas las imágenes son marcadores de posición (dibujos, no fotos).
+     Busca  src="data:image/svg+xml,...  y sustituye por la ruta de tu foto,
+     por ejemplo:  src="fotos/habitacion-despues.jpg"
+
+  2) EL COMPARADOR ANTES/DESPUÉS
+     Ahora mismo el "antes" es la misma imagen con un filtro que simula
+     una foto mal hecha (oscura, fría, torcida). Es una simulación.
+     Cuando tengas parejas reales:
+       - pon la foto original en la capa .ba__layer--before
+       - pon la foto mejorada en la capa .ba__layer--after
+       - QUITA la clase  is-simulado  del contenedor .ba
+
+  3) EL DATO DEL 90%
+     No lo he puesto. Ver el comentario en "Dónde se pierde exactamente".
+
+  4) TESTIMONIOS
+     La sección "Confianza" está vacía a propósito. No invento reseñas.
+
+  5) EL CIERRE
+     Una sola llamada a la acción: el botón de WhatsApp. Sin formulario,
+     a propósito: dos caminos para lo mismo reparten los clics.
+     No se regala ninguna foto: no hay prueba gratuita en la página.
+  ============================================================
+-->
+
+<link rel="canonical" href="https://delclos.photo/hoteles/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://delclos.photo/hoteles/">
+<meta property="og:site_name" content="delclos.photo">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Te ayudo a obtener más clientes — Retoque de fotos de alojamiento">
+<meta property="og:description" content="Retoque de las fotos que tu alojamiento ya tiene publicadas. Sin sesión, sin que venga nadie y sin bloquear habitaciones.">
+<meta name="twitter:card" content="summary">
+
+<script>document.documentElement.classList.add("js");</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap">
+
+<style>
+/* ---------------------------------------------------------
+   FICHAS DE DISEÑO
+   --------------------------------------------------------- */
+:root{
+  --ground:      #F7F4EF;
+  --ground-deep: #211E1A;
+  --ground-warm: #EFEAE1;
+  --ink:         #1A1815;
+  --ink-soft:    #6E6659;
+  --ink-invert:  #F2EDE4;
+  --accent:      #B8845F;
+  --accent-deep: #9C6B48;
+  --rule:        #E2DCD1;
+  --rule-deep:   #3A342C;
+
+  --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --shell: 1280px;
+  --gut: clamp(1.25rem, 4vw, 4.5rem);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:clamp(1rem, .96rem + .18vw, 1.0625rem);
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{ display:block; max-width:100%; }
+
+h1,h2,h3{
+  font-family:var(--display);
+  font-weight:400;
+  font-variation-settings:"SOFT" 22, "WONK" 1;
+  letter-spacing:-.017em;
+  line-height:1.06;
+  text-wrap:balance;
+  margin:0;
+}
+
+a{ color:inherit; }
+
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* --- estructura ------------------------------------------- */
+.shell{
+  width:100%;
+  max-width:var(--shell);
+  margin-inline:auto;
+  padding-inline:var(--gut);
+}
+
+.band{ padding-block:clamp(4.5rem, 11vw, 9.5rem); }
+.band + .band{ border-top:1px solid var(--rule); }
+
+.eyebrow{
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.19em;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  margin:0 0 1.5rem;
+}
+
+.lede{
+  color:var(--ink-soft);
+  max-width:34rem;
+  font-size:1.0625rem;
+}
+.lede strong{ color:var(--ink); font-weight:500; }
+
+/* --- aparición al hacer scroll ----------------------------
+   El punto de partida invisible SOLO se aplica si el JavaScript
+   ha arrancado (clase .js en <html>). Si falla, el contenido se
+   ve entero: una landing en blanco no es una opción.
+   ---------------------------------------------------------- */
+.js .rise{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1);
+}
+.js .rise.is-visible{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  .js .rise{ opacity:1; transform:none; transition:none; }
+}
+
+/* ---------------------------------------------------------
+   1. HERO
+   --------------------------------------------------------- */
+.hero{
+  position:relative;
+  min-height:min(92svh, 820px);
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+  background:var(--ground-deep);
+}
+.hero__media{ position:absolute; inset:0; }
+.hero__media img{ width:100%; height:100%; object-fit:cover; }
+.hero__media::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,
+    rgba(26,24,21,.34) 0%,
+    rgba(26,24,21,.10) 34%,
+    rgba(26,24,21,.62) 82%,
+    rgba(26,24,21,.80) 100%);
+}
+.hero__inner{
+  position:relative;
+  width:100%;
+  padding-block:clamp(3rem,7vw,5.5rem);
+  color:var(--ink-invert);
+}
+.hero .eyebrow{ color:rgba(242,237,228,.72); }
+.hero h1{
+  font-size:clamp(2.9rem, 8.4vw, 6.4rem);
+  max-width:14ch;
+  margin-bottom:1.5rem;
+}
+.hero__sub{
+  max-width:40ch;
+  font-size:clamp(1.0625rem,1.6vw,1.25rem);
+  color:rgba(242,237,228,.92);
+  margin:0 0 1rem;
+}
+/* la objeción que más frena, contestada antes de que la piense */
+.hero__kicker{
+  max-width:44ch;
+  margin:0 0 2.75rem;
+  font-size:.9375rem;
+  letter-spacing:.01em;
+  color:rgba(242,237,228,.62);
+  border-left:2px solid var(--accent);
+  padding-left:.9rem;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+  font-family:var(--body);
+  font-size:.9375rem;
+  font-weight:500;
+  letter-spacing:.01em;
+  padding:1rem 1.9rem;
+  border:0;
+  border-radius:2px;
+  background:var(--accent);
+  color:#fff;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background .25s ease, transform .25s ease;
+}
+.btn:hover{ background:var(--accent-deep); transform:translateY(-1px); }
+.btn__arrow{ transition:transform .25s ease; }
+.btn:hover .btn__arrow{ transform:translateY(2px); }
+@media (prefers-reduced-motion: reduce){
+  .btn,.btn__arrow{ transition:none; }
+  .btn:hover{ transform:none; }
+}
+
+/* ---------------------------------------------------------
+   2. COMPARADOR — la pieza central
+   --------------------------------------------------------- */
+.compare{ background:var(--ground-warm); }
+
+.compare__head{
+  display:grid;
+  gap:1.25rem;
+  margin-bottom:clamp(3rem,6vw,4.5rem);
+}
+@media (min-width:900px){
+  .compare__head{ grid-template-columns:minmax(0,7fr) minmax(0,4fr); align-items:end; }
+}
+.compare__head h2{ font-size:clamp(2.1rem,5.2vw,3.6rem); max-width:16ch; }
+
+.ba-set{ display:grid; gap:clamp(3.5rem,7vw,6rem); }
+
+.ba-item__meta{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:.5rem 1.25rem;
+  margin-bottom:1.1rem;
+}
+.ba-item__name{
+  font-family:var(--display);
+  font-variation-settings:"SOFT" 22, "WONK" 1;
+  font-size:1.5rem;
+  letter-spacing:-.01em;
+}
+.ba-item__note{
+  font-size:.875rem;
+  color:var(--ink-soft);
+}
+
+/* el comparador en sí */
+.ba{
+  --pos:50%;
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:16/10;
+  background:var(--rule);
+  touch-action:pan-y;
+  cursor:ew-resize;
+  user-select:none;
+  -webkit-user-select:none;
+}
+@media (min-width:900px){ .ba{ aspect-ratio:16/9; } }
+
+.ba__layer{ position:absolute; inset:0; }
+.ba__layer img{ width:100%; height:100%; object-fit:cover; }
+.ba__layer--before{ clip-path:inset(0 calc(100% - var(--pos)) 0 0); }
+
+/* SIMULACIÓN: quita la clase is-simulado del .ba cuando tengas fotos reales */
+.ba.is-simulado .ba__layer--before img{
+  filter:brightness(.74) saturate(.55) contrast(.88) hue-rotate(9deg);
+  transform:scale(1.07) rotate(.9deg);
+  transform-origin:center;
+}
+
+.ba__tag{
+  position:absolute;
+  top:1rem;
+  z-index:3;
+  font-size:.625rem;
+  font-weight:600;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  padding:.4rem .7rem;
+  background:rgba(26,24,21,.62);
+  color:#fff;
+  backdrop-filter:blur(6px);
+  pointer-events:none;
+  transition:opacity .3s ease;
+}
+.ba__tag--before{ left:1rem; }
+.ba__tag--after{ right:1rem; }
+
+.ba__divider{
+  position:absolute;
+  top:0; bottom:0;
+  left:var(--pos);
+  width:2px;
+  margin-left:-1px;
+  background:rgba(255,255,255,.92);
+  z-index:4;
+  pointer-events:none;
+}
+
+.ba__grip{
+  position:absolute;
+  top:50%;
+  left:var(--pos);
+  z-index:5;
+  width:52px; height:52px;
+  margin:-26px 0 0 -26px;
+  border:0;
+  border-radius:50%;
+  background:var(--ground);
+  color:var(--ink);
+  display:grid;
+  place-items:center;
+  cursor:ew-resize;
+  box-shadow:0 3px 18px rgba(26,24,21,.32);
+  transition:transform .2s ease;
+}
+.ba__grip:hover{ transform:scale(1.07); }
+.ba:active .ba__grip{ transform:scale(.96); }
+@media (prefers-reduced-motion: reduce){
+  .ba__grip{ transition:none; }
+  .ba__grip:hover,.ba:active .ba__grip{ transform:none; }
+}
+
+.ba__hint{
+  margin-top:.85rem;
+  font-size:.8125rem;
+  color:var(--ink-soft);
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+
+/* ---------------------------------------------------------
+   4. BENEFICIOS
+   --------------------------------------------------------- */
+.gains{
+  display:grid;
+  gap:0;
+  margin-top:clamp(2.5rem,5vw,3.5rem);
+  border-top:1px solid var(--rule);
+}
+.gain{
+  padding-block:clamp(1.75rem,3.4vw,2.5rem);
+  border-bottom:1px solid var(--rule);
+  display:grid;
+  gap:.5rem;
+}
+@media (min-width:820px){
+  .gain{ grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:var(--gut); align-items:baseline; }
+}
+.gain h3{
+  font-size:clamp(1.3rem,2.4vw,1.65rem);
+  letter-spacing:-.012em;
+}
+.gain p{ margin:0; color:var(--ink-soft); max-width:52ch; }
+
+/* ---------------------------------------------------------
+   5. GALERÍA
+   --------------------------------------------------------- */
+.gallery{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:clamp(1rem,2.2vw,1.75rem);
+  margin-top:clamp(2.5rem,5vw,3.5rem);
+}
+@media (min-width:700px){ .gallery{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1050px){ .gallery{ grid-template-columns:repeat(3,1fr); } }
+.gallery figure{ margin:0; }
+.gallery img{
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  background:var(--rule);
+}
+.gallery figcaption{
+  margin-top:.65rem;
+  font-size:.8125rem;
+  color:var(--ink-soft);
+}
+
+/* ---------------------------------------------------------
+   6. CÓMO FUNCIONA  (secuencia real → los números se ganan)
+   --------------------------------------------------------- */
+.process{ background:var(--ground-deep); color:var(--ink-invert); }
+.process .eyebrow{ color:var(--accent); }
+.process h2{ font-size:clamp(2.1rem,5.2vw,3.6rem); max-width:14ch; }
+
+.steps{
+  display:grid;
+  gap:clamp(2.25rem,4vw,3rem);
+  margin-top:clamp(3rem,6vw,4.5rem);
+  counter-reset:step;
+}
+@media (min-width:840px){ .steps{ grid-template-columns:repeat(3,1fr); gap:var(--gut); } }
+
+.step{
+  padding-top:1.5rem;
+  border-top:1px solid var(--rule-deep);
+}
+.step__top{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:1rem;
+  margin-bottom:1rem;
+}
+.step__n{
+  font-family:var(--display);
+  font-variation-settings:"SOFT" 22, "WONK" 1;
+  font-size:2.75rem;
+  line-height:1;
+  color:var(--accent);
+}
+/* cuánto le cuesta a él cada paso: es el dato que decide */
+.step__time{
+  font-size:.6875rem;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(242,237,228,.5);
+  white-space:nowrap;
+}
+.step h3{ font-size:1.3rem; margin-bottom:.6rem; }
+.step p{ margin:0; color:rgba(242,237,228,.62); font-size:.9375rem; }
+
+/* ---------------------------------------------------------
+   7. CONFIANZA (vacío a propósito)
+   --------------------------------------------------------- */
+.trust__slots{
+  display:grid;
+  gap:1.25rem;
+  margin-top:clamp(2rem,4vw,3rem);
+}
+@media (min-width:820px){ .trust__slots{ grid-template-columns:repeat(2,1fr); } }
+.slot{
+  border:1px dashed var(--rule);
+  padding:clamp(1.5rem,3vw,2.25rem);
+  color:var(--ink-soft);
+  font-size:.875rem;
+}
+.slot strong{
+  display:block;
+  font-family:var(--display);
+  font-variation-settings:"SOFT" 22, "WONK" 1;
+  font-size:1.2rem;
+  font-weight:400;
+  color:var(--ink);
+  margin-bottom:.5rem;
+}
+
+/* ---------------------------------------------------------
+   8. CONTACTO — un solo camino, deliberadamente
+   --------------------------------------------------------- */
+.contact h2{ font-size:clamp(2.4rem,6.4vw,4.2rem); max-width:15ch; }
+.contact__lede{
+  margin:1.75rem 0 0;
+  color:var(--ink-soft);
+  max-width:38ch;
+  font-size:1.0625rem;
+}
+.contact__cta{ margin:2.75rem 0 0; }
+.btn--lg{ padding:1.2rem 2.4rem; font-size:1rem; }
+.contact__alt{
+  margin:2.25rem 0 0;
+  font-size:.9375rem;
+  color:var(--ink-soft);
+}
+.contact__alt a{ text-decoration-color:var(--accent); text-underline-offset:3px; }
+
+/* --- pie -------------------------------------------------- */
+.foot{
+  border-top:1px solid var(--rule);
+  padding-block:2.25rem;
+  font-size:.8125rem;
+  color:var(--ink-soft);
+  display:flex;
+  flex-wrap:wrap;
+  gap:.75rem 2rem;
+  justify-content:space-between;
+}
+.foot a{ text-decoration-color:var(--rule); text-underline-offset:3px; }
+.foot a:hover{ color:var(--ink); }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     1. HERO
+     ========================================================= -->
+<header class="hero">
+  <div class="hero__media">
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='.7' y2='1'%3E%3Cstop offset='0' stop-color='%23D9C9B2'/%3E%3Cstop offset='.55' stop-color='%23A98F73'/%3E%3Cstop offset='1' stop-color='%235C4B3B'/%3E%3C/linearGradient%3E%3ClinearGradient id='w' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23FBF6EC'/%3E%3Cstop offset='1' stop-color='%23E4D3B8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Crect x='980' y='120' width='420' height='620' fill='url(%23w)' opacity='.82'/%3E%3Crect x='1010' y='150' width='170' height='560' fill='%23FDFAF3' opacity='.35'/%3E%3Crect x='0' y='760' width='1600' height='240' fill='%234A3C2F' opacity='.5'/%3E%3Crect x='120' y='560' width='620' height='210' rx='12' fill='%23C7B096' opacity='.55'/%3E%3Crect x='150' y='500' width='170' height='70' rx='34' fill='%23E9DAC2' opacity='.5'/%3E%3C/svg%3E" alt="Habitación de hotel boutique iluminada con luz natural">
+  </div>
+
+  <div class="hero__inner shell">
+    <p class="eyebrow">Retoque de fotos de hotel · Barcelona</p>
+    <h1>Tu hotel es mejor de lo que parece en internet</h1>
+    <p class="hero__sub">Mándame las fotos que ya tienes publicadas. Te las devuelvo como deberían haber salido.</p>
+    <p class="hero__kicker">Sin sesión, sin que venga nadie, sin bloquear ni una habitación.</p>
+    <a class="btn" href="#comparador">
+      Ver el antes y después
+      <svg class="btn__arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 4v14m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</header>
+
+<main>
+
+<!-- =========================================================
+     2. COMPARADOR ANTES / DESPUÉS
+     ========================================================= -->
+<section class="band compare" id="comparador">
+  <div class="shell">
+    <div class="compare__head">
+      <div>
+        <p class="eyebrow rise">El trabajo</p>
+        <h2 class="rise">Arrastra y compara</h2>
+      </div>
+      <p class="lede rise"><strong>El «antes» es la foto que el hotel ya tenía publicada.</strong> No se volvió a fotografiar nada: los muebles, la luz y el buen gusto ya estaban ahí. Solo no se veían.</p>
+    </div>
+
+    <div class="ba-set">
+
+      <!-- Comparador 1 -->
+      <article class="ba-item rise">
+        <div class="ba-item__meta">
+          <h3 class="ba-item__name">Habitación</h3>
+          <p class="ba-item__note">Luz corregida, verticales enderezadas, blancos neutros.</p>
+        </div>
+        <div class="ba is-simulado" data-ba>
+          <div class="ba__layer ba__layer--after">
+            <img loading="lazy" alt="Habitación después del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='r' x1='0' y1='0' x2='.6' y2='1'%3E%3Cstop offset='0' stop-color='%23F3E7D4'/%3E%3Cstop offset='1' stop-color='%23BFA285'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23r)'/%3E%3Crect x='1130' y='90' width='330' height='520' fill='%23FEFBF4' opacity='.85'/%3E%3Crect x='140' y='420' width='700' height='300' rx='14' fill='%23D8C3A6'/%3E%3Crect x='190' y='350' width='250' height='90' rx='45' fill='%23EFE1C9'/%3E%3Crect x='530' y='350' width='250' height='90' rx='45' fill='%23EFE1C9'/%3E%3Crect x='0' y='720' width='1600' height='180' fill='%23A78A6C' opacity='.6'/%3E%3C/svg%3E">
+          </div>
+          <div class="ba__layer ba__layer--before">
+            <img loading="lazy" alt="Habitación antes del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='r2' x1='0' y1='0' x2='.6' y2='1'%3E%3Cstop offset='0' stop-color='%23F3E7D4'/%3E%3Cstop offset='1' stop-color='%23BFA285'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23r2)'/%3E%3Crect x='1130' y='90' width='330' height='520' fill='%23FEFBF4' opacity='.85'/%3E%3Crect x='140' y='420' width='700' height='300' rx='14' fill='%23D8C3A6'/%3E%3Crect x='190' y='350' width='250' height='90' rx='45' fill='%23EFE1C9'/%3E%3Crect x='530' y='350' width='250' height='90' rx='45' fill='%23EFE1C9'/%3E%3Crect x='0' y='720' width='1600' height='180' fill='%23A78A6C' opacity='.6'/%3E%3C/svg%3E">
+          </div>
+          <span class="ba__tag ba__tag--before">Antes</span>
+          <span class="ba__tag ba__tag--after">Después</span>
+          <span class="ba__divider"></span>
+          <button class="ba__grip" type="button" role="slider"
+                  aria-label="Comparar antes y después: habitación"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9.5 7.5L5 12l4.5 4.5M14.5 7.5L19 12l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <p class="ba__hint">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 9L5 12l3 3M16 9l3 3-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Arrastra el círculo, o usa las flechas del teclado
+        </p>
+      </article>
+
+      <!-- Comparador 2 -->
+      <article class="ba-item rise">
+        <div class="ba-item__meta">
+          <h3 class="ba-item__name">Zona común</h3>
+          <p class="ba-item__note">Encuadre más amplio, tonos más cálidos, sombras abiertas.</p>
+        </div>
+        <div class="ba is-simulado" data-ba>
+          <div class="ba__layer ba__layer--after">
+            <img loading="lazy" alt="Zona común después del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='c' x1='.2' y1='0' x2='.8' y2='1'%3E%3Cstop offset='0' stop-color='%23EFE3CE'/%3E%3Cstop offset='1' stop-color='%23A98C6E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23c)'/%3E%3Crect x='80' y='110' width='260' height='470' fill='%23FCF7EC' opacity='.8'/%3E%3Crect x='400' y='110' width='260' height='470' fill='%23FCF7EC' opacity='.62'/%3E%3Crect x='860' y='430' width='620' height='250' rx='16' fill='%23C4A98A'/%3E%3Ccircle cx='1180' cy='300' r='95' fill='%23E5D3B6' opacity='.75'/%3E%3Crect x='0' y='690' width='1600' height='210' fill='%238E7358' opacity='.55'/%3E%3C/svg%3E">
+          </div>
+          <div class="ba__layer ba__layer--before">
+            <img loading="lazy" alt="Zona común antes del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='c2' x1='.2' y1='0' x2='.8' y2='1'%3E%3Cstop offset='0' stop-color='%23EFE3CE'/%3E%3Cstop offset='1' stop-color='%23A98C6E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23c2)'/%3E%3Crect x='80' y='110' width='260' height='470' fill='%23FCF7EC' opacity='.8'/%3E%3Crect x='400' y='110' width='260' height='470' fill='%23FCF7EC' opacity='.62'/%3E%3Crect x='860' y='430' width='620' height='250' rx='16' fill='%23C4A98A'/%3E%3Ccircle cx='1180' cy='300' r='95' fill='%23E5D3B6' opacity='.75'/%3E%3Crect x='0' y='690' width='1600' height='210' fill='%238E7358' opacity='.55'/%3E%3C/svg%3E">
+          </div>
+          <span class="ba__tag ba__tag--before">Antes</span>
+          <span class="ba__tag ba__tag--after">Después</span>
+          <span class="ba__divider"></span>
+          <button class="ba__grip" type="button" role="slider"
+                  aria-label="Comparar antes y después: zona común"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9.5 7.5L5 12l4.5 4.5M14.5 7.5L19 12l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </article>
+
+      <!-- Comparador 3 -->
+      <article class="ba-item rise">
+        <div class="ba-item__meta">
+          <h3 class="ba-item__name">Recepción</h3>
+          <p class="ba-item__note">Reflejos controlados, escena despejada, marca legible.</p>
+        </div>
+        <div class="ba is-simulado" data-ba>
+          <div class="ba__layer ba__layer--after">
+            <img loading="lazy" alt="Recepción después del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='v' x1='0' y1='.2' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23F6EDDD'/%3E%3Cstop offset='1' stop-color='%239E8365'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23v)'/%3E%3Crect x='300' y='470' width='1000' height='230' rx='8' fill='%23B6997A'/%3E%3Crect x='300' y='440' width='1000' height='34' fill='%23D9C4A6'/%3E%3Crect x='560' y='120' width='480' height='250' fill='%23FDF9F0' opacity='.72'/%3E%3Ccircle cx='400' cy='300' r='58' fill='%23E7D5B9' opacity='.7'/%3E%3Ccircle cx='1200' cy='300' r='58' fill='%23E7D5B9' opacity='.7'/%3E%3Crect x='0' y='700' width='1600' height='200' fill='%23806647' opacity='.5'/%3E%3C/svg%3E">
+          </div>
+          <div class="ba__layer ba__layer--before">
+            <img loading="lazy" alt="Recepción antes del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='v2' x1='0' y1='.2' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23F6EDDD'/%3E%3Cstop offset='1' stop-color='%239E8365'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23v2)'/%3E%3Crect x='300' y='470' width='1000' height='230' rx='8' fill='%23B6997A'/%3E%3Crect x='300' y='440' width='1000' height='34' fill='%23D9C4A6'/%3E%3Crect x='560' y='120' width='480' height='250' fill='%23FDF9F0' opacity='.72'/%3E%3Ccircle cx='400' cy='300' r='58' fill='%23E7D5B9' opacity='.7'/%3E%3Ccircle cx='1200' cy='300' r='58' fill='%23E7D5B9' opacity='.7'/%3E%3Crect x='0' y='700' width='1600' height='200' fill='%23806647' opacity='.5'/%3E%3C/svg%3E">
+          </div>
+          <span class="ba__tag ba__tag--before">Antes</span>
+          <span class="ba__tag ba__tag--after">Después</span>
+          <span class="ba__divider"></span>
+          <button class="ba__grip" type="button" role="slider"
+                  aria-label="Comparar antes y después: recepción"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9.5 7.5L5 12l4.5 4.5M14.5 7.5L19 12l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     3. DÓNDE SE PIERDE EL DINERO
+     ========================================================= -->
+<section class="band">
+  <div class="shell">
+    <!--
+      DATO ESTADÍSTICO — pendiente
+      Me pediste dejar como marcador la frase del "90%+ de las reservas empiezan
+      mirando fotos". No la publico: una cifra sin fuente es munición para que el
+      hotelero te la discuta. Cuando tengas un dato verificado (Phocuswright,
+      Expedia Group Media Solutions, o tus propias métricas), añádelo aquí como
+      un cuarto bloque .gain, citando la fuente.
+    -->
+    <p class="eyebrow rise">Dónde se pierde exactamente</p>
+    <h2 class="rise" style="font-size:clamp(2.1rem,5.2vw,3.6rem);max-width:16ch">No te descartan leyendo. Te descartan mirando.</h2>
+
+    <div class="gains">
+      <div class="gain rise">
+        <h3>En la lista de resultados</h3>
+        <p>Eres una miniatura entre cuarenta. Nadie llega a tu descripción si la foto no le ha hecho parar.</p>
+      </div>
+      <div class="gain rise">
+        <h3>En la comparación de precio</h3>
+        <p>Cuando dos hoteles cuestan parecido, gana el que parece más caro.</p>
+      </div>
+      <div class="gain rise">
+        <h3>En tu propia web</h3>
+        <p>Es donde no pagas comisión. Y donde la foto tiene que cerrar la reserva ella sola.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     3b. LO QUE NO HAGO — mata la objeción de la IA
+     ========================================================= -->
+<section class="band pledge">
+  <div class="shell pledge__grid">
+    <div>
+      <p class="eyebrow rise">Antes de que lo preguntes</p>
+      <h2 class="rise">No invento habitaciones</h2>
+    </div>
+    <div class="pledge__body">
+      <p class="rise">Trabajo sobre tu foto: corrijo lo que la cámara hizo mal — luz, verticales, color. <strong>No añado vistas que no existen, no agrando habitaciones y no cambio los muebles.</strong></p>
+      <p class="rise">Si el huésped abre la puerta y no reconoce lo que vio, te he creado un problema peor que el que tenías.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     5. GALERÍA
+     ========================================================= -->
+<section class="band">
+  <div class="shell">
+    <p class="eyebrow rise">Galería</p>
+    <h2 class="rise" style="font-size:clamp(2.1rem,5.2vw,3.6rem);max-width:14ch">Trabajo entregado</h2>
+
+    <div class="gallery">
+      <figure class="rise"><img loading="lazy" alt="Suite con luz de tarde" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p1' x1='0' y1='0' x2='.8' y2='1'%3E%3Cstop offset='0' stop-color='%23F2E6D2'/%3E%3Cstop offset='1' stop-color='%23A98D6E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p1)'/%3E%3Crect x='470' y='90' width='250' height='430' fill='%23FDF8EE' opacity='.8'/%3E%3Crect x='70' y='600' width='420' height='220' rx='12' fill='%23CBB294'/%3E%3C/svg%3E"><figcaption>Suite · Eixample</figcaption></figure>
+      <figure class="rise"><img loading="lazy" alt="Escalera y patio interior" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p2' x1='.3' y1='0' x2='.7' y2='1'%3E%3Cstop offset='0' stop-color='%23E9DCC6'/%3E%3Cstop offset='1' stop-color='%238E7358'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p2)'/%3E%3Ccircle cx='400' cy='330' r='150' fill='%23FBF4E6' opacity='.6'/%3E%3Crect x='120' y='680' width='560' height='180' rx='10' fill='%23BFA687'/%3E%3C/svg%3E"><figcaption>Patio · Gràcia</figcaption></figure>
+      <figure class="rise"><img loading="lazy" alt="Baño con azulejo original" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p3' x1='0' y1='.2' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23F6EFE2'/%3E%3Cstop offset='1' stop-color='%23B49B7E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p3)'/%3E%3Crect x='250' y='140' width='300' height='300' rx='150' fill='%23FDFAF2' opacity='.7'/%3E%3Crect x='150' y='620' width='500' height='250' rx='14' fill='%23C9B094'/%3E%3C/svg%3E"><figcaption>Baño · Born</figcaption></figure>
+      <figure class="rise"><img loading="lazy" alt="Terraza al atardecer" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p4' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23F5DFC0'/%3E%3Cstop offset='1' stop-color='%237E6449'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p4)'/%3E%3Ccircle cx='560' cy='260' r='90' fill='%23FCEBCE' opacity='.85'/%3E%3Crect x='0' y='700' width='800' height='300' fill='%236B543C' opacity='.6'/%3E%3C/svg%3E"><figcaption>Terraza · Poblenou</figcaption></figure>
+      <figure class="rise"><img loading="lazy" alt="Dormitorio compartido de hostel" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p5' x1='.1' y1='0' x2='.9' y2='1'%3E%3Cstop offset='0' stop-color='%23EFE5D3'/%3E%3Cstop offset='1' stop-color='%239C8365'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p5)'/%3E%3Crect x='90' y='260' width='280' height='180' rx='10' fill='%23D6BE9F'/%3E%3Crect x='90' y='520' width='280' height='180' rx='10' fill='%23D6BE9F'/%3E%3Crect x='520' y='120' width='200' height='520' fill='%23FCF6EA' opacity='.72'/%3E%3C/svg%3E"><figcaption>Dormitorio · Raval</figcaption></figure>
+      <figure class="rise"><img loading="lazy" alt="Rincón de desayunos" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p6' x1='0' y1='.3' x2='.9' y2='1'%3E%3Cstop offset='0' stop-color='%23F3EAD8'/%3E%3Cstop offset='1' stop-color='%23A38A6C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p6)'/%3E%3Ccircle cx='400' cy='560' r='170' fill='%23D8C1A2'/%3E%3Crect x='170' y='120' width='460' height='230' fill='%23FDF8ED' opacity='.7'/%3E%3C/svg%3E"><figcaption>Desayunos · Sant Antoni</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     6. CÓMO FUNCIONA
+     ========================================================= -->
+<section class="band process">
+  <div class="shell">
+    <p class="eyebrow rise">Cómo funciona</p>
+    <h2 class="rise">Tú solo haces dos cosas</h2>
+
+    <div class="steps">
+      <div class="step rise">
+        <div class="step__top"><span class="step__n">1</span><span class="step__time">2 minutos</span></div>
+        <h3>Mándamelas</h3>
+        <p>Pégame por WhatsApp el enlace donde estén tus fotos: tu web, Booking, Airbnb, lo que uses. Si prefieres mandarme los archivos, también.</p>
+      </div>
+      <div class="step rise">
+        <div class="step__top"><span class="step__n">2</span><span class="step__time">48 horas</span></div>
+        <h3>Espera</h3>
+        <p>Aquí no haces nada. Yo corrijo luz, verticales, color y limpio la escena, foto a foto.</p>
+      </div>
+      <div class="step rise">
+        <div class="step__top"><span class="step__n">3</span><span class="step__time">10 minutos</span></div>
+        <h3>Descárgalas y súbelas</h3>
+        <p>Te paso un enlace a una galería con todas, ordenadas y en el tamaño que pide cada sitio. Abres, descargas y sustituyes las viejas donde las tengas publicadas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     7. CONFIANZA — pendiente de rellenar
+     ========================================================= -->
+<section class="band">
+  <div class="shell">
+    <p class="eyebrow rise">Confianza</p>
+    <h2 class="rise" style="font-size:clamp(2.1rem,5.2vw,3.6rem);max-width:15ch">Lo que dicen los hoteles</h2>
+
+    <div class="trust__slots">
+      <!--
+        NO he escrito testimonios de ejemplo. Un testimonio inventado en una
+        página comercial es una reseña falsa: si un hotelero lo comprueba,
+        pierdes el cliente y la reputación.
+        Sustituye cada bloque por una cita real, con nombre y alojamiento,
+        y pide permiso antes de publicarla.
+      -->
+      <div class="slot rise">
+        <strong>Testimonio pendiente</strong>
+        Sustituye este bloque por una cita real: la frase, el nombre de la persona y el alojamiento.
+      </div>
+      <div class="slot rise">
+        <strong>Testimonio pendiente</strong>
+        Con dos basta para empezar. Pídelas después del primer encargo, cuando la mejora aún se recuerda.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     8. CONTACTO — una sola acción: WhatsApp
+     ========================================================= -->
+<section class="band contact">
+  <div class="shell">
+    <p class="eyebrow rise">Contacto</p>
+    <h2 class="rise">Te ayudo a obtener más clientes</h2>
+    <p class="rise contact__lede">Escríbeme por WhatsApp y me cuentas qué alojamiento tienes. Sin compromiso, y te contesto yo.</p>
+
+    <p class="rise contact__cta">
+      <a class="btn btn--lg" href="https://wa.me/34609904064?text=Hola%20Pol%2C%20tengo%20un%20alojamiento%20en%20Barcelona%20y%20quiero%20mejorar%20mis%20fotos." target="_blank" rel="noopener">
+        Escribir por WhatsApp
+        <svg class="btn__arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14m0 0l-6-6m6 6l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </p>
+
+    <p class="rise contact__alt">Si prefieres el correo: <a href="mailto:delclos.photo@gmail.com">delclos.photo@gmail.com</a></p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="shell foot">
+    <span>Pol Delclòs · Fotografía para alojamientos · Barcelona</span>
+    <a href="https://delclos.photo">delclos.photo</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- Comparador antes/después ------------------------- */
+  document.querySelectorAll("[data-ba]").forEach(function(box){
+    var grip = box.querySelector(".ba__grip");
+    var pos  = 50;
+    var dragging = false;
+
+    function paint(){
+      box.style.setProperty("--pos", pos + "%");
+      if (grip) grip.setAttribute("aria-valuenow", Math.round(pos));
+    }
+
+    function fromEvent(e){
+      var r = box.getBoundingClientRect();
+      if (!r.width) return;
+      pos = Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100));
+      paint();
+    }
+
+    box.addEventListener("pointerdown", function(e){
+      dragging = true;
+      box.setPointerCapture(e.pointerId);
+      fromEvent(e);
+    });
+
+    box.addEventListener("pointermove", function(e){
+      if (dragging) fromEvent(e);
+    });
+
+    ["pointerup","pointercancel"].forEach(function(evt){
+      box.addEventListener(evt, function(e){
+        dragging = false;
+        if (box.hasPointerCapture && box.hasPointerCapture(e.pointerId)) {
+          box.releasePointerCapture(e.pointerId);
+        }
+      });
+    });
+
+    /* el botón no debe enviar formularios ni tragarse el arrastre */
+    if (grip){
+      grip.addEventListener("click", function(e){ e.preventDefault(); });
+      grip.addEventListener("keydown", function(e){
+        var step = e.shiftKey ? 10 : 2;
+        if (e.key === "ArrowLeft")       { pos = Math.max(0, pos - step); }
+        else if (e.key === "ArrowRight") { pos = Math.min(100, pos + step); }
+        else if (e.key === "Home")       { pos = 0; }
+        else if (e.key === "End")        { pos = 100; }
+        else { return; }
+        e.preventDefault();
+        paint();
+      });
+    }
+
+    paint();
+  });
+
+  /* ---- Aparición al hacer scroll ------------------------ */
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var targets = document.querySelectorAll(".rise");
+
+  if (reduced || !("IntersectionObserver" in window)){
+    targets.forEach(function(el){ el.classList.add("is-visible"); });
+    return;
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      io.unobserve(entry.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+
+  targets.forEach(function(el, i){
+    el.style.transitionDelay = (Math.min(i % 4, 3) * 70) + "ms";
+    io.observe(el);
+  });
+})();
+</script>
+
+</body>
+</html>
