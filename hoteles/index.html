@@ -671,43 +671,115 @@ a{ color:inherit; }
 </section>
 
 <!-- =========================================================
-     5. MÁS COMPARADORES — pendiente de fotos reales
-     ---------------------------------------------------------
-     Aquí iba una galería con 6 dibujos de relleno. Se quitó:
-     eran inventados y afirmaban un trabajo que no existe.
-
-     PARA ACTIVARLA: manda parejas (antes + despues) de otras
-     estancias — baño, terraza, sala de desayunos, escalera...
-     Con cada pareja se añade un bloque como este dentro de
-     <div class="ba-set ba-set--rejilla"> ... </div>:
-
-       <article class="ba-item rise">
-         <div class="ba-item__meta">
-           <h3 class="ba-item__name">NOMBRE</h3>
-           <p class="ba-item__note">QUÉ CAMBIÓ</p>
-         </div>
-         <div class="ba" data-ba>
-           <div class="ba__layer ba__layer--after">
-             <img loading="lazy" width="1600" height="1066" alt="..." src="/hoteles/fotos/NOMBRE-despues.jpg">
-           </div>
-           <div class="ba__layer ba__layer--before">
-             <img loading="lazy" width="1600" height="1066" alt="..." src="/hoteles/fotos/NOMBRE-antes.jpg">
-           </div>
-           <span class="ba__tag ba__tag--before">Antes</span>
-           <span class="ba__tag ba__tag--after">Después</span>
-           <span class="ba__divider"></span>
-           <button class="ba__grip" type="button" role="slider"
-                   aria-label="Comparar antes y después: NOMBRE"
-                   aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
-             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-               <path d="M9.5 7.5L5 12l4.5 4.5M14.5 7.5L19 12l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-             </svg>
-           </button>
-         </div>
-       </article>
-
-     El JavaScript ya los detecta solos, no hay que tocar nada más.
+     5. MÁS EJEMPLOS — imágenes de relleno, sustituir por fotos reales
+     Cada bloque: pon la foto original en .ba__layer--before, la
+     mejorada en .ba__layer--after, y QUITA la clase is-simulado.
      ========================================================= -->
+<section class="band">
+  <div class="shell">
+    <p class="eyebrow rise">Más ejemplos</p>
+    <h2 class="rise" style="font-size:clamp(2.1rem,5.2vw,3.6rem);max-width:14ch">Otras estancias</h2>
+
+    <div class="ba-set ba-set--rejilla" style="margin-top:clamp(2.5rem,5vw,3.5rem)">
+      <article class="ba-item rise">
+        <div class="ba-item__meta">
+          <h3 class="ba-item__name">Baño</h3>
+          <p class="ba-item__note">Reflejos controlados y blancos limpios.</p>
+        </div>
+        <div class="ba is-simulado" data-ba>
+          <div class="ba__layer ba__layer--after">
+            <img loading="lazy" alt="Baño después del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='b1' x1='0' y1='0' x2='.7' y2='1'%3E%3Cstop offset='0' stop-color='%23F6EFE2'/%3E%3Cstop offset='1' stop-color='%23B49B7E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23b1)'/%3E%3Crect x='980' y='120' width='420' height='300' rx='150' fill='%23FDFAF2' opacity='.75'/%3E%3Crect x='180' y='520' width='620' height='240' rx='16' fill='%23C9B094'/%3E%3Crect x='240' y='180' width='220' height='260' fill='%23FBF5E9' opacity='.6'/%3E%3C/svg%3E">
+          </div>
+          <div class="ba__layer ba__layer--before">
+            <img loading="lazy" alt="Baño antes del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='b1' x1='0' y1='0' x2='.7' y2='1'%3E%3Cstop offset='0' stop-color='%23F6EFE2'/%3E%3Cstop offset='1' stop-color='%23B49B7E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23b1)'/%3E%3Crect x='980' y='120' width='420' height='300' rx='150' fill='%23FDFAF2' opacity='.75'/%3E%3Crect x='180' y='520' width='620' height='240' rx='16' fill='%23C9B094'/%3E%3Crect x='240' y='180' width='220' height='260' fill='%23FBF5E9' opacity='.6'/%3E%3C/svg%3E">
+          </div>
+          <span class="ba__tag ba__tag--before">Antes</span>
+          <span class="ba__tag ba__tag--after">Después</span>
+          <span class="ba__divider"></span>
+          <button class="ba__grip" type="button" role="slider"
+                  aria-label="Comparar antes y después: Baño"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9.5 7.5L5 12l4.5 4.5M14.5 7.5L19 12l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </article>
+      <article class="ba-item rise">
+        <div class="ba-item__meta">
+          <h3 class="ba-item__name">Terraza</h3>
+          <p class="ba-item__note">Cielo recuperado y luz de tarde.</p>
+        </div>
+        <div class="ba is-simulado" data-ba>
+          <div class="ba__layer ba__layer--after">
+            <img loading="lazy" alt="Terraza después del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='t1' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23F5DFC0'/%3E%3Cstop offset='1' stop-color='%237E6449'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23t1)'/%3E%3Ccircle cx='1180' cy='240' r='110' fill='%23FCEBCE' opacity='.85'/%3E%3Crect x='0' y='620' width='1600' height='280' fill='%236B543C' opacity='.55'/%3E%3Crect x='160' y='430' width='520' height='200' rx='14' fill='%23D8C1A2' opacity='.8'/%3E%3C/svg%3E">
+          </div>
+          <div class="ba__layer ba__layer--before">
+            <img loading="lazy" alt="Terraza antes del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='t1' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23F5DFC0'/%3E%3Cstop offset='1' stop-color='%237E6449'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23t1)'/%3E%3Ccircle cx='1180' cy='240' r='110' fill='%23FCEBCE' opacity='.85'/%3E%3Crect x='0' y='620' width='1600' height='280' fill='%236B543C' opacity='.55'/%3E%3Crect x='160' y='430' width='520' height='200' rx='14' fill='%23D8C1A2' opacity='.8'/%3E%3C/svg%3E">
+          </div>
+          <span class="ba__tag ba__tag--before">Antes</span>
+          <span class="ba__tag ba__tag--after">Después</span>
+          <span class="ba__divider"></span>
+          <button class="ba__grip" type="button" role="slider"
+                  aria-label="Comparar antes y después: Terraza"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9.5 7.5L5 12l4.5 4.5M14.5 7.5L19 12l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </article>
+      <article class="ba-item rise">
+        <div class="ba-item__meta">
+          <h3 class="ba-item__name">Sala de desayunos</h3>
+          <p class="ba-item__note">Más luz y colores de la comida reales.</p>
+        </div>
+        <div class="ba is-simulado" data-ba>
+          <div class="ba__layer ba__layer--after">
+            <img loading="lazy" alt="Sala de desayunos después del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='d1' x1='.2' y1='0' x2='.9' y2='1'%3E%3Cstop offset='0' stop-color='%23F3EAD8'/%3E%3Cstop offset='1' stop-color='%23A38A6C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23d1)'/%3E%3Ccircle cx='760' cy='560' r='190' fill='%23D8C1A2'/%3E%3Crect x='300' y='120' width='700' height='250' fill='%23FDF8ED' opacity='.7'/%3E%3Crect x='1180' y='430' width='300' height='260' rx='12' fill='%23C0A585' opacity='.7'/%3E%3C/svg%3E">
+          </div>
+          <div class="ba__layer ba__layer--before">
+            <img loading="lazy" alt="Sala de desayunos antes del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='d1' x1='.2' y1='0' x2='.9' y2='1'%3E%3Cstop offset='0' stop-color='%23F3EAD8'/%3E%3Cstop offset='1' stop-color='%23A38A6C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23d1)'/%3E%3Ccircle cx='760' cy='560' r='190' fill='%23D8C1A2'/%3E%3Crect x='300' y='120' width='700' height='250' fill='%23FDF8ED' opacity='.7'/%3E%3Crect x='1180' y='430' width='300' height='260' rx='12' fill='%23C0A585' opacity='.7'/%3E%3C/svg%3E">
+          </div>
+          <span class="ba__tag ba__tag--before">Antes</span>
+          <span class="ba__tag ba__tag--after">Después</span>
+          <span class="ba__divider"></span>
+          <button class="ba__grip" type="button" role="slider"
+                  aria-label="Comparar antes y después: Sala de desayunos"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9.5 7.5L5 12l4.5 4.5M14.5 7.5L19 12l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </article>
+      <article class="ba-item rise">
+        <div class="ba-item__meta">
+          <h3 class="ba-item__name">Escalera</h3>
+          <p class="ba-item__note">Se ve la altura y el detalle del suelo.</p>
+        </div>
+        <div class="ba is-simulado" data-ba>
+          <div class="ba__layer ba__layer--after">
+            <img loading="lazy" alt="Escalera después del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='e1' x1='.3' y1='0' x2='.7' y2='1'%3E%3Cstop offset='0' stop-color='%23E9DCC6'/%3E%3Cstop offset='1' stop-color='%238E7358'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23e1)'/%3E%3Ccircle cx='800' cy='330' r='190' fill='%23FBF4E6' opacity='.55'/%3E%3Crect x='240' y='620' width='1120' height='170' rx='10' fill='%23BFA687'/%3E%3Crect x='400' y='500' width='800' height='90' rx='8' fill='%23CDB697' opacity='.8'/%3E%3C/svg%3E">
+          </div>
+          <div class="ba__layer ba__layer--before">
+            <img loading="lazy" alt="Escalera antes del retoque" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='e1' x1='.3' y1='0' x2='.7' y2='1'%3E%3Cstop offset='0' stop-color='%23E9DCC6'/%3E%3Cstop offset='1' stop-color='%238E7358'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='900' fill='url(%23e1)'/%3E%3Ccircle cx='800' cy='330' r='190' fill='%23FBF4E6' opacity='.55'/%3E%3Crect x='240' y='620' width='1120' height='170' rx='10' fill='%23BFA687'/%3E%3Crect x='400' y='500' width='800' height='90' rx='8' fill='%23CDB697' opacity='.8'/%3E%3C/svg%3E">
+          </div>
+          <span class="ba__tag ba__tag--before">Antes</span>
+          <span class="ba__tag ba__tag--after">Después</span>
+          <span class="ba__divider"></span>
+          <button class="ba__grip" type="button" role="slider"
+                  aria-label="Comparar antes y después: Escalera"
+                  aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-orientation="horizontal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9.5 7.5L5 12l4.5 4.5M14.5 7.5L19 12l-4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
 <!-- =========================================================
      6. CÓMO FUNCIONA
