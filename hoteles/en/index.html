@@ -404,27 +404,10 @@ a{ color:inherit; }
 .gain p{ margin:0; color:var(--ink-soft); max-width:52ch; }
 
 /* ---------------------------------------------------------
-   5. GALERÍA
+   5. Rejilla para futuros comparadores (2 por fila en pantalla ancha)
    --------------------------------------------------------- */
-.gallery{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:clamp(1rem,2.2vw,1.75rem);
-  margin-top:clamp(2.5rem,5vw,3.5rem);
-}
-@media (min-width:700px){ .gallery{ grid-template-columns:repeat(2,1fr); } }
-@media (min-width:1050px){ .gallery{ grid-template-columns:repeat(3,1fr); } }
-.gallery figure{ margin:0; }
-.gallery img{
-  width:100%;
-  aspect-ratio:4/5;
-  object-fit:cover;
-  background:var(--rule);
-}
-.gallery figcaption{
-  margin-top:.65rem;
-  font-size:.8125rem;
-  color:var(--ink-soft);
+@media (min-width:1000px){
+  .ba-set--rejilla{ grid-template-columns:repeat(2,1fr); gap:clamp(2rem,4vw,3rem); }
 }
 
 /* ---------------------------------------------------------
@@ -682,25 +665,6 @@ a{ color:inherit; }
     <div class="pledge__body">
       <p class="rise">I work on your photo. I fix what the camera got wrong: the light, the crooked walls, the colour. <strong>I do not add views that do not exist, I do not make rooms bigger and I do not change the furniture.</strong></p>
       <p class="rise">If a guest opens the door and does not recognise what they saw, I have handed you a worse problem than the one you had.</p>
-    </div>
-  </div>
-</section>
-
-<!-- =========================================================
-     5. GALERÍA
-     ========================================================= -->
-<section class="band">
-  <div class="shell">
-    <p class="eyebrow rise">Gallery</p>
-    <h2 class="rise" style="font-size:clamp(2.1rem,5.2vw,3.6rem);max-width:14ch">Other examples</h2>
-
-    <div class="gallery">
-      <figure class="rise"><img loading="lazy" alt="Suite in afternoon light" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p1' x1='0' y1='0' x2='.8' y2='1'%3E%3Cstop offset='0' stop-color='%23F2E6D2'/%3E%3Cstop offset='1' stop-color='%23A98D6E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p1)'/%3E%3Crect x='470' y='90' width='250' height='430' fill='%23FDF8EE' opacity='.8'/%3E%3Crect x='70' y='600' width='420' height='220' rx='12' fill='%23CBB294'/%3E%3C/svg%3E"><figcaption>Guest room</figcaption></figure>
-      <figure class="rise"><img loading="lazy" alt="Stairwell and inner courtyard" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p2' x1='.3' y1='0' x2='.7' y2='1'%3E%3Cstop offset='0' stop-color='%23E9DCC6'/%3E%3Cstop offset='1' stop-color='%238E7358'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p2)'/%3E%3Ccircle cx='400' cy='330' r='150' fill='%23FBF4E6' opacity='.6'/%3E%3Crect x='120' y='680' width='560' height='180' rx='10' fill='%23BFA687'/%3E%3C/svg%3E"><figcaption>Common area</figcaption></figure>
-      <figure class="rise"><img loading="lazy" alt="Bathroom with original tiling" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p3' x1='0' y1='.2' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23F6EFE2'/%3E%3Cstop offset='1' stop-color='%23B49B7E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p3)'/%3E%3Crect x='250' y='140' width='300' height='300' rx='150' fill='%23FDFAF2' opacity='.7'/%3E%3Crect x='150' y='620' width='500' height='250' rx='14' fill='%23C9B094'/%3E%3C/svg%3E"><figcaption>Bathroom</figcaption></figure>
-      <figure class="rise"><img loading="lazy" alt="Terrace at dusk" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p4' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23F5DFC0'/%3E%3Cstop offset='1' stop-color='%237E6449'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p4)'/%3E%3Ccircle cx='560' cy='260' r='90' fill='%23FCEBCE' opacity='.85'/%3E%3Crect x='0' y='700' width='800' height='300' fill='%236B543C' opacity='.6'/%3E%3C/svg%3E"><figcaption>Terrace</figcaption></figure>
-      <figure class="rise"><img loading="lazy" alt="Hostel shared dormitory" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p5' x1='.1' y1='0' x2='.9' y2='1'%3E%3Cstop offset='0' stop-color='%23EFE5D3'/%3E%3Cstop offset='1' stop-color='%239C8365'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p5)'/%3E%3Crect x='90' y='260' width='280' height='180' rx='10' fill='%23D6BE9F'/%3E%3Crect x='90' y='520' width='280' height='180' rx='10' fill='%23D6BE9F'/%3E%3Crect x='520' y='120' width='200' height='520' fill='%23FCF6EA' opacity='.72'/%3E%3C/svg%3E"><figcaption>Shared dorm</figcaption></figure>
-      <figure class="rise"><img loading="lazy" alt="Breakfast corner" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p6' x1='0' y1='.3' x2='.9' y2='1'%3E%3Cstop offset='0' stop-color='%23F3EAD8'/%3E%3Cstop offset='1' stop-color='%23A38A6C'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='1000' fill='url(%23p6)'/%3E%3Ccircle cx='400' cy='560' r='170' fill='%23D8C1A2'/%3E%3Crect x='170' y='120' width='460' height='230' fill='%23FDF8ED' opacity='.7'/%3E%3C/svg%3E"><figcaption>Breakfast area</figcaption></figure>
     </div>
   </div>
 </section>
