@@ -167,16 +167,19 @@ a{ color:inherit; }
 }
 .hero__media{ position:relative; }
 .hero__media img{
-  /* a todo el ancho, sin bandas laterales. El tope de altura evita que en
-     pantallas anchas la foto empuje el titular fuera de la pantalla; a
-     partir de ahí recorta un poco por arriba y por abajo, lo justo. */
   display:block;
   width:100%;
   height:auto;
-  aspect-ratio:1536/1024;
-  max-height:68svh;
+  /* 5:2 anclado abajo = el borde superior cae justo encima del rótulo.
+     Quedan dentro: rótulo, pórtico, entrada, empedrado y fuente. */
+  aspect-ratio:5/2;
   object-fit:cover;
-  object-position:center 92%;
+  object-position:center bottom;
+}
+/* en móvil un 5:2 dejaría la foto en una tira de 150px: se deja algo
+   más alta, entra un poco más de fachada pero sigue mandando la entrada */
+@media (max-width:760px){
+  .hero__media img{ aspect-ratio:2/1; }
 }
 
 .hero__inner{
