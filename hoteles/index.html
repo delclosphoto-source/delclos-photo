@@ -165,23 +165,18 @@ a{ color:inherit; }
      que el negro de la sección "Cómo funciona", para que respire */
   background:#2F2822;
 }
-.hero__media{
-  position:relative;
-  display:flex;
-  justify-content:center;
-  background:#2F2822;
-}
+.hero__media{ position:relative; }
 .hero__media img{
+  /* a todo el ancho, sin bandas laterales. El tope de altura evita que en
+     pantallas anchas la foto empuje el titular fuera de la pantalla; a
+     partir de ahí recorta un poco por arriba y por abajo, lo justo. */
+  display:block;
   width:100%;
-  /* La foto se ve ENTERA, sin recortar. Es una toma frontal y simétrica:
-     cualquier recorte le parte el eje, la cornisa o el rótulo. Con
-     "contain" y la proporción propia de la foto no se pierde nada. */
-  /* el ancho se limita a partir del alto máximo, así la foto nunca
-     necesita bandas laterales anchas y queda centrada en la franja */
-  max-width:calc(min(72svh, 760px) * 1.5);
   height:auto;
   aspect-ratio:1536/1024;
-  object-fit:contain;
+  max-height:68svh;
+  object-fit:cover;
+  object-position:center 58%;
 }
 
 .hero__inner{
