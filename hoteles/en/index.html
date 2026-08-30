@@ -168,17 +168,10 @@ a{ color:inherit; }
 .hero__media img{
   display:block;
   width:100%;
+  /* la foto entera, a todo el ancho: su propia proporción, sin recorte
+     por ningún lado y sin bandas laterales */
   height:auto;
-  /* 5:2 anclado abajo = el borde superior cae justo encima del rótulo.
-     Quedan dentro: rótulo, pórtico, entrada, empedrado y fuente. */
-  aspect-ratio:5/2;
-  object-fit:cover;
-  object-position:center bottom;
-}
-/* en móvil un 5:2 dejaría la foto en una tira de 150px: se deja algo
-   más alta, entra un poco más de fachada pero sigue mandando la entrada */
-@media (max-width:760px){
-  .hero__media img{ aspect-ratio:2/1; }
+  aspect-ratio:1536/1024;
 }
 
 .hero__inner{
