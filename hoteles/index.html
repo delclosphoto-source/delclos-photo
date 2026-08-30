@@ -155,71 +155,80 @@ a{ color:inherit; }
 
 /* ---------------------------------------------------------
    1. HERO
+   La foto va ENTERA y sin nada encima: ni velo, ni desenfoque, ni
+   sombras. El texto vive debajo, sobre el fondo de la página. Es la
+   única forma de que se lean bien las dos cosas a la vez.
    --------------------------------------------------------- */
 .hero{
   position:relative;
-  min-height:min(92svh, 820px);
+  /* la franja bajo la foto: un marrón oscuro cálido, un punto más claro
+     que el negro de la sección "Cómo funciona", para que respire */
+  background:#2F2822;
+}
+.hero__media{
+  position:relative;
   display:flex;
-  align-items:flex-end;
-  overflow:hidden;
-  background:var(--ground-deep);
+  justify-content:center;
+  background:#2F2822;
 }
-.hero__media{ position:absolute; inset:0; }
-.hero__media img{ width:100%; height:100%; object-fit:cover; }
-.hero__media::after{
-  content:"";
-  position:absolute; inset:0;
-  background:linear-gradient(180deg,
-    rgba(26,24,21,.34) 0%,
-    rgba(26,24,21,.10) 34%,
-    rgba(26,24,21,.62) 82%,
-    rgba(26,24,21,.80) 100%);
+.hero__media img{
+  width:100%;
+  /* La foto se ve ENTERA, sin recortar. Es una toma frontal y simétrica:
+     cualquier recorte le parte el eje, la cornisa o el rótulo. Con
+     "contain" y la proporción propia de la foto no se pierde nada. */
+  /* el ancho se limita a partir del alto máximo, así la foto nunca
+     necesita bandas laterales anchas y queda centrada en la franja */
+  max-width:calc(min(72svh, 760px) * 1.5);
+  height:auto;
+  aspect-ratio:1536/1024;
+  object-fit:contain;
 }
+
 .hero__inner{
   position:relative;
   width:100%;
-  padding-block:clamp(3rem,7vw,5.5rem);
+  padding-block:clamp(2.75rem, 6vw, 4.75rem);
   color:var(--ink-invert);
 }
-.hero .eyebrow{ color:rgba(242,237,228,.72); }
+.hero .eyebrow{ color:var(--accent); }
 .hero h1{
-  font-size:clamp(2.9rem, 8.4vw, 6.4rem);
-  max-width:14ch;
+  font-size:clamp(2.6rem, 7vw, 5.4rem);
+  max-width:15ch;
   margin-bottom:1.5rem;
+  color:var(--ink-invert);
 }
+/* el trozo que carga la promesa, en el cobre de la marca */
+.hero h1 .destacado{ color:var(--accent); }
 .hero__sub{
-  max-width:40ch;
+  max-width:44ch;
   font-size:clamp(1.0625rem,1.6vw,1.25rem);
-  color:rgba(242,237,228,.92);
+  color:rgba(242,237,228,.94);
   margin:0 0 1rem;
 }
 /* la objeción que más frena, contestada antes de que la piense */
 .hero__kicker{
-  max-width:44ch;
-  margin:0 0 2.75rem;
+  max-width:46ch;
+  margin:0 0 2.5rem;
   font-size:.9375rem;
   letter-spacing:.01em;
-  color:rgba(242,237,228,.62);
+  color:rgba(242,237,228,.68);
   border-left:2px solid var(--accent);
   padding-left:.9rem;
 }
 
-/* selector de idioma, discreto sobre la foto */
+/* selector de idioma, alineado a la derecha sobre el bloque de texto */
 .idiomas{
-  position:absolute;
-  top:calc(-1 * clamp(3rem,7vw,5.5rem) + 0.5rem);
-  /* el bloque contenedor llega al borde exterior del relleno:
-     hay que descontarlo para que no se pegue a la pantalla */
-  right:var(--gut);
   display:flex;
+  justify-content:flex-end;
   gap:.9rem;
+  margin-bottom:1.75rem;
   font-size:.6875rem;
   font-weight:600;
   letter-spacing:.15em;
 }
 .idiomas span{ color:var(--ink-invert); }
 .idiomas a{
-  color:rgba(242,237,228,.5);
+  color:rgba(242,237,228,.55);
   text-decoration:none;
   transition:color .2s ease;
 }
@@ -497,7 +506,7 @@ a{ color:inherit; }
      ========================================================= -->
 <header class="hero">
   <div class="hero__media">
-    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='.7' y2='1'%3E%3Cstop offset='0' stop-color='%23D9C9B2'/%3E%3Cstop offset='.55' stop-color='%23A98F73'/%3E%3Cstop offset='1' stop-color='%235C4B3B'/%3E%3C/linearGradient%3E%3ClinearGradient id='w' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23FBF6EC'/%3E%3Cstop offset='1' stop-color='%23E4D3B8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1600' height='1000' fill='url(%23g)'/%3E%3Crect x='980' y='120' width='420' height='620' fill='url(%23w)' opacity='.82'/%3E%3Crect x='1010' y='150' width='170' height='560' fill='%23FDFAF3' opacity='.35'/%3E%3Crect x='0' y='760' width='1600' height='240' fill='%234A3C2F' opacity='.5'/%3E%3Crect x='120' y='560' width='620' height='210' rx='12' fill='%23C7B096' opacity='.55'/%3E%3Crect x='150' y='500' width='170' height='70' rx='34' fill='%23E9DAC2' opacity='.5'/%3E%3C/svg%3E" alt="Habitación de hotel boutique iluminada con luz natural">
+    <img src="/hoteles/fotos/portada.jpg" width="1536" height="1024" fetchpriority="high" alt="Fachada de hotel al atardecer con la entrada iluminada">
   </div>
 
   <div class="hero__inner shell">
@@ -506,7 +515,7 @@ a{ color:inherit; }
       <a href="/hoteles/en/" hreflang="en" lang="en">EN</a>
     </nav>
     <p class="eyebrow">Retoque de fotos de hotel · Barcelona</p>
-    <h1>Tu hotel es mejor de lo que parece en internet</h1>
+    <h1>Tu hotel es <span class="destacado">mejor de lo que parece</span> en internet</h1>
     <p class="hero__sub">Mándame las fotos que ya tienes publicadas. Te las devuelvo como deberían haber salido.</p>
     <p class="hero__kicker">Sin sesión, sin que venga nadie, sin bloquear ni una habitación.</p>
     <a class="btn" href="#comparador">
