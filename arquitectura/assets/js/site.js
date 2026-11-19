@@ -99,6 +99,68 @@
     });
   }
 
+  /* ------------------------------------- filtrar la galeria per ambit de feina */
+  function filtres() {
+    var caixa = document.querySelector(".filtres");
+    var galeria = document.querySelector(".galeria");
+    if (!caixa || !galeria) return;
+
+    var botons = Array.prototype.slice.call(caixa.querySelectorAll(".filtre"));
+    var portades = Array.prototype.slice.call(galeria.querySelectorAll(".portada"));
+    var avis = document.querySelector(".cap-resultat");
+    if (!botons.length || !portades.length) return;
+
+    /* Els filtres nomes apareixen si aquest codi s'ha arribat a executar:
+       sense JavaScript no hi ha botons que no facin res. */
+    arrel.classList.add("te-filtres");
+
+    var clau = "delclos-ambit-" + arrel.getAttribute("lang");
+
+    function aplicar(ambit, desar) {
+      var visibles = 0;
+      portades.forEach(function (portada) {
+        var seu = portada.getAttribute("data-ambit") || "";
+        var mostrar = !ambit || seu === ambit;
+        if (mostrar) {
+          portada.removeAttribute("hidden");
+          portada.classList.add("vist");
+          visibles++;
+        } else {
+          portada.setAttribute("hidden", "");
+        }
+      });
+      botons.forEach(function (boto) {
+        var seu = boto.getAttribute("data-ambit") || "";
+        var actiu = seu === ambit;
+        boto.classList.toggle("filtre--actiu", actiu);
+        boto.setAttribute("aria-pressed", actiu ? "true" : "false");
+      });
+      if (avis) {
+        if (visibles) { avis.setAttribute("hidden", ""); }
+        else { avis.removeAttribute("hidden"); }
+      }
+      if (desar) {
+        try { sessionStorage.setItem(clau, ambit); } catch (e) {}
+      }
+    }
+
+    botons.forEach(function (boto) {
+      boto.addEventListener("click", function () {
+        aplicar(boto.getAttribute("data-ambit") || "", true);
+      });
+    });
+
+    /* En tornar d'un projecte, el visitant retroba el filtre que havia triat. */
+    var desat = "";
+    try { desat = sessionStorage.getItem(clau) || ""; } catch (e) {}
+    if (desat) {
+      var existeix = botons.some(function (b) {
+        return (b.getAttribute("data-ambit") || "") === desat;
+      });
+      if (existeix) aplicar(desat, false);
+    }
+  }
+
   /* ------------------------------------------------------- ampliar les fotos */
   function lupa() {
     var dialeg = document.querySelector(".lupa");
@@ -170,6 +232,7 @@
   function engegar() {
     aparicions();
     idiomes();
+    filtres();
     recordarPosicio();
     lupa();
   }

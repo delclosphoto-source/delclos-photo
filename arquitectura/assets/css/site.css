@@ -329,8 +329,13 @@ h1, h2, h3, h4 {
 
 
 /* -------------------------------------------------------- pagina contacte */
-.contacte { display: grid; grid-template-columns: minmax(0, 460px); gap: 56px; }
-.contacte--amb-retrat { grid-template-columns: minmax(0, 460px) minmax(0, 420px); }
+.contacte {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 72px;
+  align-items: start;
+  max-width: 1180px;
+}
 
 .contacte__nom {
   font-size: 24px;
@@ -351,7 +356,7 @@ h1, h2, h3, h4 {
 
 .contacte__text { margin: 26px 0 0; max-width: 46em; }
 
-.contacte__serveis { margin: 34px 0 0; padding: 0; list-style: none; }
+.contacte__serveis { margin: 14px 0 0; padding: 0; list-style: none; }
 .contacte__serveis li {
   padding: 7px 0;
   border-bottom: 1px solid var(--linia);
@@ -361,7 +366,7 @@ h1, h2, h3, h4 {
 .contacte__serveis li:first-child { border-top: 1px solid var(--linia); }
 
 .contacte__zona {
-  margin: 26px 0 0;
+  margin: 12px 0 0;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -506,6 +511,231 @@ h1, h2, h3, h4 {
 }
 
 
+/* ------------------------------------------------- encapcalament de la portada */
+.intro {
+  max-width: 44em;
+  margin: 0 0 52px;
+}
+
+.intro__titol {
+  font-size: clamp(23px, 2.4vw, 33px);
+  font-weight: 300;
+  line-height: 1.24;
+  letter-spacing: 0.005em;
+  color: var(--titol);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.intro__subtitol {
+  margin: 18px 0 0;
+  max-width: 40em;
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+.intro__cta {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--titol);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--linia);
+  padding-bottom: 5px;
+  transition: border-color var(--transicio) ease;
+}
+.intro__cta:hover { border-color: var(--titol); }
+.intro__cta span { margin-left: 4px; }
+
+
+/* ----------------------------------------------------- filtres de la galeria */
+.filtres { display: none; }
+.te-filtres .filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 0 0 38px;
+}
+
+.filtre {
+  border: 1px solid var(--linia);
+  background: transparent;
+  color: var(--menu);
+  font-family: inherit;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: border-color var(--transicio) ease, color var(--transicio) ease;
+}
+.filtre:hover { color: var(--titol); }
+.filtre--actiu { border-color: var(--titol); color: var(--titol); }
+
+.portada[hidden] { display: none; }
+
+.cap-resultat {
+  margin: 0 0 40px;
+  color: var(--suau);
+  font-size: 13px;
+}
+
+
+/* ------------------------------------------------------------------ botons */
+.boto {
+  display: inline-block;
+  background: var(--titol);
+  color: var(--fons);
+  border: 0;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: opacity var(--transicio) ease;
+}
+.boto:hover { opacity: 0.78; }
+.boto--petit { padding: 11px 20px; font-size: 10px; }
+
+.barra__cta {
+  align-self: flex-start;
+  margin-top: 26px;
+  color: var(--titol);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--linia);
+  padding-bottom: 5px;
+  transition: border-color var(--transicio) ease;
+}
+.barra__cta:hover { border-color: var(--titol); }
+
+
+/* ------------------------------------------ bloc per a immobiliaries i promotores */
+.crida {
+  max-width: 44em;
+  margin: 86px 0 0;
+  padding-top: 42px;
+  border-top: 1px solid var(--linia);
+}
+
+.crida__titol {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.crida__text { margin: 18px 0 28px; max-width: 42em; }
+
+
+/* --------------------------------------------- crida dins la pagina de projecte */
+.album__crida {
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid var(--linia);
+}
+.album__crida-titol {
+  margin: 0;
+  color: var(--titol);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.album__crida-text { margin: 7px 0 16px; font-size: 13px; line-height: 1.6; }
+
+
+/* ------------------------------------------------------------- formulari */
+.contacte__rotul {
+  margin: 34px 0 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--titol);
+}
+
+.formulari { align-self: start; }
+
+.formulari__titol {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0 0 24px;
+}
+
+.camps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+}
+.camp { margin: 0; }
+.camp--ample { grid-column: 1 / -1; }
+
+.camp label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--titol);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.camp .req { color: var(--suau); }
+
+.camp input,
+.camp select,
+.camp textarea {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid var(--linia);
+  border-radius: 0;
+  background: #FBFAF6;
+  color: var(--titol);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  transition: border-color var(--transicio) ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.camp select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--menu) 50%),
+                    linear-gradient(135deg, var(--menu) 50%, transparent 50%);
+  background-position: calc(100% - 19px) 52%, calc(100% - 14px) 52%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 34px;
+}
+.camp textarea { resize: vertical; min-height: 120px; }
+.camp input:hover, .camp select:hover, .camp textarea:hover { border-color: var(--suau); }
+.camp input:focus, .camp select:focus, .camp textarea:focus { border-color: var(--titol); }
+
+.formulari form > .boto { margin-top: 26px; }
+
+.formulari__peu {
+  display: block;
+  margin-top: 14px;
+  color: var(--suau);
+  font-size: 11.5px;
+}
+
+.amagat { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+
+/* ---------------------------------------------------------- pagina gracies */
+.gracies { max-width: 34em; }
+.gracies__tornar { margin: 32px 0 0; }
+
+
 /* ============================================================
    Amplades de pantalla
    ============================================================ */
@@ -518,10 +748,6 @@ h1, h2, h3, h4 {
   :root { --barra: 260px; --marge: 56px; --aire: 36px; --separacio: 40px; --costat: 40px; }
   .galeria--max4, .galeria--max3 { column-count: 2; }
   .album__graella { grid-template-columns: minmax(0, 1fr) 220px; gap: 36px; }
-}
-
-@media (max-width: 1000px) {
-  .contacte--amb-retrat { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ------------------------------------------------------ mobil i tauleta */
@@ -567,7 +793,7 @@ h1, h2, h3, h4 {
 
   .album__nav { margin-top: 48px; font-size: 10px; letter-spacing: 0.12em; }
 
-  .contacte, .contacte--amb-retrat { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .contacte { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .contacte__nom { font-size: 20px; letter-spacing: 0.2em; }
   .contacte__ofici { font-size: 15px; }
 
@@ -596,4 +822,34 @@ h1, h2, h3, h4 {
     scroll-behavior: auto !important;
   }
   .js .revela { opacity: 1; transform: none; }
+}
+
+
+/* ------------------------------------------- la nova portada en pantalles petites */
+@media (max-width: 1100px) {
+  .contacte { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+}
+
+@media (max-width: 900px) {
+  .barra__cta { display: none; }
+
+  .intro { margin-bottom: 34px; }
+  .intro__titol { font-size: 21px; line-height: 1.3; }
+  .intro__subtitol { margin-top: 14px; font-size: 14px; }
+  .intro__cta { margin-top: 20px; }
+
+  .te-filtres .filtres { gap: 7px; margin-bottom: 26px; }
+  .filtre { padding: 8px 13px; font-size: 10px; letter-spacing: 0.1em; }
+
+  .crida { margin-top: 60px; padding-top: 32px; }
+  .crida__titol { font-size: 14px; }
+
+  .camps { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .boto { width: 100%; text-align: center; padding: 16px 20px; }
+  .boto--petit { width: auto; padding: 12px 20px; }
+  .formulari__titol { margin-bottom: 18px; }
+}
+
+@media (max-width: 420px) {
+  .filtre { padding: 8px 11px; }
 }
