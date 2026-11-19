@@ -164,9 +164,19 @@ h1, h2, h3, h4 {
   column-gap: var(--separacio);
   column-fill: balance;
 }
-.galeria--max2 { column-count: 2; }
-.galeria--max3 { column-count: 3; }
-.galeria--max4 { column-count: 4; }
+.galeria--max2 { --columnes: 2; column-count: 2; }
+.galeria--max3 { --columnes: 3; column-count: 3; }
+.galeria--max4 { --columnes: 4; column-count: 4; }
+
+/* Quan el repartiment el fa el navegador amb JavaScript, les columnes son
+   de debo: cada fotografia va a la columna mes curta i cap queda despenjada. */
+.galeria--repartida {
+  display: flex;
+  gap: var(--separacio);
+  column-count: initial;
+}
+.columna { flex: 1 1 0; min-width: 0; }
+.columna .portada:last-child { margin-bottom: 0; }
 
 .portada {
   display: block;
@@ -331,10 +341,10 @@ h1, h2, h3, h4 {
 /* -------------------------------------------------------- pagina contacte */
 .contacte {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
   gap: 72px;
   align-items: start;
-  max-width: 1180px;
+  max-width: 1020px;
 }
 
 .contacte__nom {
@@ -550,40 +560,6 @@ h1, h2, h3, h4 {
 .intro__cta span { margin-left: 4px; }
 
 
-/* ----------------------------------------------------- filtres de la galeria */
-.filtres { display: none; }
-.te-filtres .filtres {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin: 0 0 38px;
-}
-
-.filtre {
-  border: 1px solid var(--linia);
-  background: transparent;
-  color: var(--menu);
-  font-family: inherit;
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 9px 16px;
-  cursor: pointer;
-  transition: border-color var(--transicio) ease, color var(--transicio) ease;
-}
-.filtre:hover { color: var(--titol); }
-.filtre--actiu { border-color: var(--titol); color: var(--titol); }
-
-.portada[hidden] { display: none; }
-
-.cap-resultat {
-  margin: 0 0 40px;
-  color: var(--suau);
-  font-size: 13px;
-}
-
-
 /* ------------------------------------------------------------------ botons */
 .boto {
   display: inline-block;
@@ -736,17 +712,44 @@ h1, h2, h3, h4 {
 .gracies__tornar { margin: 32px 0 0; }
 
 
+/* ------------------------------------------------- pagines sobre mi i serveis */
+.sobre { display: grid; grid-template-columns: minmax(0, 1fr); gap: 52px; max-width: 46em; }
+.sobre--amb-retrat {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  max-width: 1100px;
+  align-items: start;
+}
+.sobre__retrat img { width: 100%; }
+.sobre__accio { margin: 40px 0 0; }
+
+.serveis { max-width: 50em; }
+.serveis__llista { list-style: none; margin: 44px 0 0; padding: 0; }
+
+.servei { padding: 24px 0; border-top: 1px solid var(--linia); }
+.servei:last-child { border-bottom: 1px solid var(--linia); }
+
+.servei__titol {
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  line-height: 1.4;
+}
+.servei__text { margin: 9px 0 0; max-width: 44em; }
+
+.serveis__accio { margin: 44px 0 0; }
+
+
 /* ============================================================
    Amplades de pantalla
    ============================================================ */
 
 @media (max-width: 1500px) {
-  .galeria--max4 { column-count: 3; }
+  .galeria--max4 { --columnes: 3; column-count: 3; }
 }
 
 @media (max-width: 1240px) {
   :root { --barra: 260px; --marge: 56px; --aire: 36px; --separacio: 40px; --costat: 40px; }
-  .galeria--max4, .galeria--max3 { column-count: 2; }
+  .galeria--max4, .galeria--max3 { --columnes: 2; column-count: 2; }
   .album__graella { grid-template-columns: minmax(0, 1fr) 220px; gap: 36px; }
 }
 
@@ -768,8 +771,15 @@ h1, h2, h3, h4 {
   .marca { margin: 0; font-size: 16px; letter-spacing: 0.14em; }
   .marca span { display: inline; }
 
-  .menu { grid-column: 1; flex-direction: row; gap: 22px; }
-  .menu a { height: 30px; font-size: 12px; }
+  /* Amb quatre apartats, el menu ocupa tota l'amplada i cap nom es parteix. */
+  .menu {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+  }
+  .menu a { height: 28px; font-size: 11.5px; white-space: nowrap; }
   .menu a[aria-current]::after { display: none; }
   .menu a[aria-current] { border-bottom: 1px solid var(--titol); }
 
@@ -778,12 +788,13 @@ h1, h2, h3, h4 {
     grid-row: 1;
     margin: 0;
     padding: 0;
+    white-space: nowrap;
   }
 
   .pagina, .pagina--galeria { padding: 26px var(--costat) 60px; }
 
   /* Tauleta: dues columnes. Mobil estret: una. */
-  .galeria--max2, .galeria--max3, .galeria--max4 { column-count: 2; }
+  .galeria--max2, .galeria--max3, .galeria--max4 { --columnes: 2; column-count: 2; }
 
   /* La informacio del projecte va abans de les fotografies */
   .album__graella { display: flex; flex-direction: column; gap: 28px; }
@@ -805,11 +816,12 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 640px) {
-  .galeria--max2, .galeria--max3, .galeria--max4 { column-count: 1; }
+  .galeria--max2, .galeria--max3, .galeria--max4 { --columnes: 1; column-count: 1; }
 }
 
 @media (max-width: 420px) {
-  .menu { gap: 18px; }
+  .menu { gap: 5px 14px; }
+  .menu a { font-size: 11px; letter-spacing: 0.03em; }
   .marca { font-size: 15px; }
 }
 
@@ -838,9 +850,6 @@ h1, h2, h3, h4 {
   .intro__subtitol { margin-top: 14px; font-size: 14px; }
   .intro__cta { margin-top: 20px; }
 
-  .te-filtres .filtres { gap: 7px; margin-bottom: 26px; }
-  .filtre { padding: 8px 13px; font-size: 10px; letter-spacing: 0.1em; }
-
   .crida { margin-top: 60px; padding-top: 32px; }
   .crida__titol { font-size: 14px; }
 
@@ -850,6 +859,8 @@ h1, h2, h3, h4 {
   .formulari__titol { margin-bottom: 18px; }
 }
 
-@media (max-width: 420px) {
-  .filtre { padding: 8px 11px; }
+@media (max-width: 900px) {
+  .sobre, .sobre--amb-retrat { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .serveis__llista { margin-top: 30px; }
+  .servei { padding: 20px 0; }
 }

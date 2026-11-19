@@ -99,66 +99,138 @@
     });
   }
 
-  /* ------------------------------------- filtrar la galeria per ambit de feina */
-  function filtres() {
-    var caixa = document.querySelector(".filtres");
+  /* ----------------------------------------------- repartir bé la galeria
+     Les columnes de CSS reparteixen el contingut com poden i sovint deixen
+     una portada tota sola a baix. Aquí es posa cada fotografia a la columna
+     que de moment és més curta, sense que cap columna passi del que li toca:
+     així totes acaben a la mateixa alçada i no queda cap foto despenjada. */
+  function mosaic() {
     var galeria = document.querySelector(".galeria");
-    if (!caixa || !galeria) return;
+    if (!galeria) return;
 
-    var botons = Array.prototype.slice.call(caixa.querySelectorAll(".filtre"));
     var portades = Array.prototype.slice.call(galeria.querySelectorAll(".portada"));
-    var avis = document.querySelector(".cap-resultat");
-    if (!botons.length || !portades.length) return;
+    if (portades.length < 3) return;
 
-    /* Els filtres nomes apareixen si aquest codi s'ha arribat a executar:
-       sense JavaScript no hi ha botons que no facin res. */
-    arrel.classList.add("te-filtres");
+    function alcada(portada) {
+      var img = portada.querySelector("img");
+      if (!img) return 1;
+      var retall = img.style.aspectRatio;
+      if (retall) {
+        var parts = retall.split("/");
+        var ample = parseFloat(parts[0]);
+        var alt = parts.length > 1 ? parseFloat(parts[1]) : 1;
+        if (ample > 0 && alt > 0) return alt / ample;
+      }
+      var w = parseFloat(img.getAttribute("width"));
+      var h = parseFloat(img.getAttribute("height"));
+      if (w > 0 && h > 0) return h / w;
+      return 1;
+    }
 
-    var clau = "delclos-ambit-" + arrel.getAttribute("lang");
+    var alcades = portades.map(alcada);
 
-    function aplicar(ambit, desar) {
-      var visibles = 0;
-      portades.forEach(function (portada) {
-        var seu = portada.getAttribute("data-ambit") || "";
-        var mostrar = !ambit || seu === ambit;
-        if (mostrar) {
-          portada.removeAttribute("hidden");
-          portada.classList.add("vist");
-          visibles++;
-        } else {
-          portada.setAttribute("hidden", "");
+    function quantesColumnes() {
+      var deia = getComputedStyle(galeria).getPropertyValue("--columnes");
+      var n = parseInt(deia, 10);
+      return n > 0 ? n : 1;
+    }
+
+    var ara = 0;
+
+    function repartir() {
+      var cols = quantesColumnes();
+      if (cols === ara) return;
+      ara = cols;
+
+      if (cols < 2) {
+        galeria.classList.remove("galeria--repartida");
+        portades.forEach(function (portada) { galeria.appendChild(portada); });
+        Array.prototype.slice.call(galeria.querySelectorAll(".columna"))
+          .forEach(function (c) { galeria.removeChild(c); });
+        return;
+      }
+
+      /* Primer, el repartiment rapid: cada foto a la columna mes curta,
+         sense que cap columna passi de les que li toquen. */
+      var maxim = Math.ceil(portades.length / cols);
+      var tria = new Array(portades.length);
+      var altures = new Array(cols);
+      var quantes = new Array(cols);
+      var i, k;
+      for (i = 0; i < cols; i++) { altures[i] = 0; quantes[i] = 0; }
+      for (i = 0; i < portades.length; i++) {
+        var millor = -1;
+        for (k = 0; k < cols; k++) {
+          if (quantes[k] >= maxim) continue;
+          if (millor < 0 || altures[k] < altures[millor]) millor = k;
         }
-      });
-      botons.forEach(function (boto) {
-        var seu = boto.getAttribute("data-ambit") || "";
-        var actiu = seu === ambit;
-        boto.classList.toggle("filtre--actiu", actiu);
-        boto.setAttribute("aria-pressed", actiu ? "true" : "false");
-      });
-      if (avis) {
-        if (visibles) { avis.setAttribute("hidden", ""); }
-        else { avis.removeAttribute("hidden"); }
+        if (millor < 0) millor = 0;
+        tria[i] = millor;
+        altures[millor] += alcades[i] + 0.08;
+        quantes[millor]++;
       }
-      if (desar) {
-        try { sessionStorage.setItem(clau, ambit); } catch (e) {}
+
+      /* Si la galeria es prou petita, es proven totes les maneres de repartir-la
+         i es queda la que deixa les columnes mes igualades: aixi cap fotografia
+         queda despenjada a baix. L'ordre dels projectes no es toca. */
+      function puntua(assignacio) {
+        var alt = [], qua = [], n;
+        for (n = 0; n < cols; n++) { alt[n] = 0; qua[n] = 0; }
+        for (n = 0; n < assignacio.length; n++) {
+          alt[assignacio[n]] += alcades[n] + 0.08;
+          qua[assignacio[n]]++;
+        }
+        var maxA = Math.max.apply(null, alt), minA = Math.min.apply(null, alt);
+        var maxQ = Math.max.apply(null, qua), minQ = Math.min.apply(null, qua);
+        return (maxA - minA) + 0.25 * (maxQ - minQ);
       }
+
+      /* Els primers projectes es queden al capdamunt de cada columna, en
+         l'ordre de treballs.json: la primera fila de la galeria no es mou.
+         Nomes es busca el millor lloc per a la resta. */
+      var lliures = portades.length - cols;
+      var proves = lliures > 0 ? Math.pow(cols, lliures) : 0;
+      if (lliures > 0 && proves <= 300000) {
+        var millorPunt = puntua(tria);
+        var actual = new Array(portades.length);
+        for (i = 0; i < cols; i++) actual[i] = i;
+        for (var n = 0; n < proves; n++) {
+          var resta = n;
+          for (i = cols; i < portades.length; i++) {
+            actual[i] = resta % cols;
+            resta = Math.floor(resta / cols);
+          }
+          var punt = puntua(actual);
+          if (punt < millorPunt) {
+            millorPunt = punt;
+            tria = actual.slice();
+          }
+        }
+      }
+
+      var columnes = [];
+      for (i = 0; i < cols; i++) {
+        var columna = document.createElement("div");
+        columna.className = "columna";
+        columnes.push(columna);
+      }
+      for (i = 0; i < portades.length; i++) {
+        columnes[tria[i]].appendChild(portades[i]);
+      }
+
+      Array.prototype.slice.call(galeria.querySelectorAll(".columna"))
+        .forEach(function (c) { galeria.removeChild(c); });
+      columnes.forEach(function (c) { galeria.appendChild(c); });
+      galeria.classList.add("galeria--repartida");
     }
 
-    botons.forEach(function (boto) {
-      boto.addEventListener("click", function () {
-        aplicar(boto.getAttribute("data-ambit") || "", true);
-      });
-    });
+    repartir();
 
-    /* En tornar d'un projecte, el visitant retroba el filtre que havia triat. */
-    var desat = "";
-    try { desat = sessionStorage.getItem(clau) || ""; } catch (e) {}
-    if (desat) {
-      var existeix = botons.some(function (b) {
-        return (b.getAttribute("data-ambit") || "") === desat;
-      });
-      if (existeix) aplicar(desat, false);
-    }
+    var espera;
+    window.addEventListener("resize", function () {
+      if (espera) window.clearTimeout(espera);
+      espera = window.setTimeout(repartir, 150);
+    }, { passive: true });
   }
 
   /* ------------------------------------------------------- ampliar les fotos */
@@ -230,9 +302,9 @@
   }
 
   function engegar() {
+    mosaic();
     aparicions();
     idiomes();
-    filtres();
     recordarPosicio();
     lupa();
   }
