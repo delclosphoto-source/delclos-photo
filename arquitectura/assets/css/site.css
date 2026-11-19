@@ -1,0 +1,599 @@
+/* ============================================================
+   Pol Delclòs — arquitectura i interiorisme
+   Fons crema, barra lateral fixa, galeria de portades.
+   Les mides estan al principi: canviant-les canvia tota la web.
+   ============================================================ */
+
+:root {
+  --fons:        #F5F3EC;
+  --titol:       #111111;
+  --text:        #595959;
+  --suau:        #686868;
+  --menu:        #666666;
+  --linia:       #DCD8CB;
+  --tipus:       "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --barra:       312px;   /* amplada de la barra lateral */
+  --marge:       75px;    /* marge superior i esquerre de la barra */
+  --aire:        45px;    /* aire entre la barra i el contingut */
+  --separacio:   50px;    /* separacio entre fotografies de la galeria */
+  --costat:      50px;    /* marge lateral del contingut */
+  --transicio:   240ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--fons);
+  color: var(--text);
+  font-family: var(--tipus);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.72;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+picture { display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+h1, h2, h3, h4 {
+  color: var(--titol);
+  font-weight: 600;
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--titol);
+  outline-offset: 3px;
+}
+
+/* Text que nomes llegeixen els lectors de pantalla */
+.nomes-lectors {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.saltar {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--fons);
+  color: var(--titol);
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.saltar:focus { left: 8px; top: 8px; }
+
+
+/* ----------------------------------------------- barra lateral (escriptori) */
+.barra {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--barra);
+  height: 100vh;
+  padding: var(--marge) var(--aire) 40px var(--marge);
+  background: var(--fons);
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.marca {
+  display: block;
+  color: var(--titol);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  margin-bottom: 33px;
+}
+.marca:hover { opacity: 0.6; }
+.marca span { display: block; }
+
+.menu { display: flex; flex-direction: column; }
+
+.menu a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 35px;
+  color: var(--menu);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 25px;
+  text-transform: uppercase;
+  transition: color var(--transicio) ease;
+}
+.menu a:hover { color: var(--titol); }
+.menu a[aria-current] { color: var(--titol); }
+.menu a[aria-current]::after {
+  content: "";
+  width: 26px;
+  height: 1px;
+  margin-left: 12px;
+  background: var(--titol);
+}
+
+.idiomes {
+  margin-top: auto;
+  padding-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+.idiomes a {
+  color: var(--menu);
+  transition: color var(--transicio) ease;
+}
+.idiomes a:hover { color: var(--titol); }
+.idiomes a[aria-current] { color: var(--titol); }
+.idiomes i { font-style: normal; color: var(--linia); }
+
+
+/* ---------------------------------------------------------------- contingut */
+.pagina {
+  padding: var(--marge) var(--costat) 90px calc(var(--barra) + var(--costat));
+  min-height: 100vh;
+}
+
+/* La galeria arrenca just on acaba la barra, com a la referencia */
+.pagina--galeria { padding-left: var(--barra); }
+
+
+/* ----------------------------------------------------- galeria de portades */
+.galeria {
+  column-gap: var(--separacio);
+  column-fill: balance;
+}
+.galeria--max2 { column-count: 2; }
+.galeria--max3 { column-count: 3; }
+.galeria--max4 { column-count: 4; }
+
+.portada {
+  display: block;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: var(--separacio);
+}
+
+.portada__marc {
+  position: relative;
+  display: block;
+  background: #E9E6DC;
+}
+
+.portada__foto { width: 100%; }
+
+.portada__peu {
+  display: block;
+  padding: 14px 0 0;
+}
+
+.portada__titol {
+  display: block;
+  color: var(--titol);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.portada__dades {
+  display: block;
+  margin-top: 5px;
+  color: var(--suau);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* A l'escriptori el titol apareix sobre una capa crema */
+@media (hover: hover) and (pointer: fine) {
+  .portada__peu {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 20px;
+    background: var(--fons);
+    text-align: center;
+    opacity: 0;
+    transition: opacity var(--transicio) ease;
+  }
+  .portada:hover .portada__peu,
+  .portada:focus-visible .portada__peu { opacity: 1; }
+  .portada__titol { font-size: 17px; letter-spacing: 0.08em; line-height: 1.18; }
+  .portada__dades { margin-top: 2px; }
+}
+
+
+/* --------------------------------------------------------- pagina d'album */
+.album__graella {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  gap: 48px;
+  align-items: start;
+}
+
+.album__info { position: sticky; top: var(--marge); }
+@media (max-height: 760px) { .album__info { position: static; } }
+
+.album__tipus {
+  margin: 0 0 10px;
+  color: var(--suau);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.album__titol {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.22;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.album__descripcio { margin: 22px 0 0; }
+
+.fitxa { margin: 26px 0 0; }
+.fitxa div + div { margin-top: 14px; }
+.fitxa dt {
+  color: var(--titol);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.fitxa dd { margin: 3px 0 0; }
+
+.avis-ia {
+  margin: 24px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--linia);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--suau);
+}
+
+.album__fotos { display: flex; flex-direction: column; gap: 30px; }
+
+.foto { margin: 0; }
+.foto button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: #E9E6DC;
+  cursor: zoom-in;
+  font: inherit;
+}
+
+.video {
+  position: relative;
+  padding-bottom: 56.25%;
+  background: #E9E6DC;
+}
+.video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.album__nav {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 70px;
+  padding-top: 26px;
+  border-top: 1px solid var(--linia);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.album__nav a { color: var(--menu); transition: color var(--transicio) ease; }
+.album__nav a:hover { color: var(--titol); }
+.album__nav span { color: var(--linia); }
+.album__nav .nav-centre { text-align: center; }
+.album__nav .nav-dreta { text-align: right; }
+
+
+/* -------------------------------------------------------- pagina contacte */
+.contacte { display: grid; grid-template-columns: minmax(0, 460px); gap: 56px; }
+.contacte--amb-retrat { grid-template-columns: minmax(0, 460px) minmax(0, 420px); }
+
+.contacte__nom {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.contacte__ofici {
+  margin: 10px 0 0;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--suau);
+}
+
+.contacte__text { margin: 26px 0 0; max-width: 46em; }
+
+.contacte__serveis { margin: 34px 0 0; padding: 0; list-style: none; }
+.contacte__serveis li {
+  padding: 7px 0;
+  border-bottom: 1px solid var(--linia);
+  font-size: 13px;
+  letter-spacing: 0.03em;
+}
+.contacte__serveis li:first-child { border-top: 1px solid var(--linia); }
+
+.contacte__zona {
+  margin: 26px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--suau);
+}
+
+.contacte__vies { margin-top: 34px; display: flex; flex-direction: column; gap: 12px; }
+
+.contacte__via {
+  color: var(--titol);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: opacity var(--transicio) ease;
+}
+.contacte__via span {
+  display: block;
+  margin-top: 2px;
+  color: var(--suau);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+.contacte__via:hover { opacity: 0.6; }
+
+.contacte__pendent {
+  color: var(--suau);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.contacte__retrat { align-self: start; }
+.contacte__retrat img { width: 100%; }
+
+.contacte__pendent small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+
+/* ------------------------------------------------------------------- peu */
+.peu {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid var(--linia);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--suau);
+}
+.peu p { margin: 0; }
+.peu a { text-decoration: underline; text-underline-offset: 3px; }
+
+
+/* --------------------------------------------------------- ampliar fotos */
+.lupa {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--fons);
+  color: var(--titol);
+}
+.lupa::backdrop { background: rgba(245, 243, 236, 0.97); }
+
+.lupa__contingut {
+  position: absolute;
+  inset: 56px 72px 56px 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lupa__contingut picture, .lupa__contingut img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.lupa__boto {
+  position: absolute;
+  border: 0;
+  background: transparent;
+  color: var(--titol);
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+  padding: 12px;
+  min-width: 48px;
+  min-height: 48px;
+}
+.lupa__boto:hover { opacity: 0.55; }
+.lupa__tancar   { top: 10px; right: 12px; font-size: 22px; }
+.lupa__anterior { left: 6px;  top: 50%; transform: translateY(-50%); font-size: 34px; }
+.lupa__seguent  { right: 6px; top: 50%; transform: translateY(-50%); font-size: 34px; }
+
+.lupa__comptador {
+  position: absolute;
+  left: 0; right: 0; bottom: 14px;
+  margin: 0;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--suau);
+}
+
+
+/* ------------------------------------------------------- foto que falta */
+.falta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+  background: #E9E6DC;
+  color: var(--suau);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 16px;
+}
+
+
+/* ---------------------------------------------------------- aparicions */
+.revela { opacity: 1; }
+.js .revela { opacity: 0; transform: translateY(10px); }
+.js .revela.vist {
+  opacity: 1;
+  transform: none;
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+
+/* ============================================================
+   Amplades de pantalla
+   ============================================================ */
+
+@media (max-width: 1500px) {
+  .galeria--max4 { column-count: 3; }
+}
+
+@media (max-width: 1240px) {
+  :root { --barra: 260px; --marge: 56px; --aire: 36px; --separacio: 40px; --costat: 40px; }
+  .galeria--max4, .galeria--max3 { column-count: 2; }
+  .album__graella { grid-template-columns: minmax(0, 1fr) 220px; gap: 36px; }
+}
+
+@media (max-width: 1000px) {
+  .contacte--amb-retrat { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ------------------------------------------------------ mobil i tauleta */
+@media (max-width: 900px) {
+  :root { --separacio: 34px; --costat: 22px; }
+
+  .barra {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 20px var(--costat) 18px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    row-gap: 10px;
+    border-bottom: 1px solid var(--linia);
+  }
+  .marca { margin: 0; font-size: 16px; letter-spacing: 0.14em; }
+  .marca span { display: inline; }
+
+  .menu { grid-column: 1; flex-direction: row; gap: 22px; }
+  .menu a { height: 30px; font-size: 12px; }
+  .menu a[aria-current]::after { display: none; }
+  .menu a[aria-current] { border-bottom: 1px solid var(--titol); }
+
+  .idiomes {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pagina, .pagina--galeria { padding: 26px var(--costat) 60px; }
+
+  /* Tauleta: dues columnes. Mobil estret: una. */
+  .galeria--max2, .galeria--max3, .galeria--max4 { column-count: 2; }
+
+  /* La informacio del projecte va abans de les fotografies */
+  .album__graella { display: flex; flex-direction: column; gap: 28px; }
+  .album__info { position: static; order: 1; }
+  .album__fotos { order: 2; gap: 20px; }
+  .album__titol { font-size: 19px; }
+
+  .album__nav { margin-top: 48px; font-size: 10px; letter-spacing: 0.12em; }
+
+  .contacte, .contacte--amb-retrat { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .contacte__nom { font-size: 20px; letter-spacing: 0.2em; }
+  .contacte__ofici { font-size: 15px; }
+
+  .lupa__contingut { inset: 52px 10px 46px 10px; }
+  .lupa__anterior, .lupa__seguent { bottom: 2px; top: auto; transform: none; }
+  .lupa__anterior { left: 10px; }
+  .lupa__seguent  { right: 10px; }
+  .lupa__comptador { bottom: 20px; }
+}
+
+@media (max-width: 640px) {
+  .galeria--max2, .galeria--max3, .galeria--max4 { column-count: 1; }
+}
+
+@media (max-width: 420px) {
+  .menu { gap: 18px; }
+  .marca { font-size: 15px; }
+}
+
+
+/* --------------------------------------------------- menys moviment */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js .revela { opacity: 1; transform: none; }
+}
