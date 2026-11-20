@@ -3,3 +3,4 @@ Allow: /
 
 Sitemap: https://delclos.photo/sitemap.xml
 Sitemap: https://delclos.photo/arquitectura/sitemap.xml
+Sitemap: https://delclos.photo/eventos/sitemap.xml
